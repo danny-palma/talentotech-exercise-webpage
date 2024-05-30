@@ -1,10 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Main() {
-    return (
+  return (
+    <h1>
       <Link to={"/login"}>ingresar</Link>
-  )
+    </h1>
+  );
 }
 
-export default Main
+export default Main;

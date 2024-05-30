@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { pageContext } from "../../../contexts/panel-page-indexer";
 
-function PanelMain() {
+function UserManual() {
   const { SetPageState } = useContext(pageContext);
-  SetPageState("main");
-  return <h1>Main panel</h1>;
+  SetPageState("user-manual");
+  return <h1>User Manual</h1>;
 }
 
-export default PanelMain;
+export default UserManual;

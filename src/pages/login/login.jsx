@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
-    <div>Login</div>
-  )
+    <h1>
+      <Link to="/panel">Ir al panel</Link>
+    </h1>
+  );
 }
 
-export default Login
+export default Login;

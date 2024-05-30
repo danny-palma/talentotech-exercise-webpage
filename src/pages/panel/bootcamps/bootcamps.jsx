@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { pageContext } from "../../../contexts/panel-page-indexer";
+import { Link } from "react-router-dom";
 
 function Bootcamps() {
+  const { SetPageState } = useContext(pageContext);
+  SetPageState("bootcamps");
   return (
-    <div className="">
-      Bootcamps
-    </div>
+    <h1>
+      <Link to="/panel/bootcamps/prueba">Ir al ejercicio</Link>
+    </h1>
   );
 }
 

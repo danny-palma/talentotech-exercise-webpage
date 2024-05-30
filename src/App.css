@@ -1,3 +1,7 @@
+@font-face {
+  font-family: talento;
+  src: url("./assets/talentotech-font.woff2");
+}
 * {
   margin: 0px;
   padding: 0px;
@@ -11,9 +15,40 @@ body,
 }
 hr {
   border: 0 solid #e5e7eb !important;
-      border-top-width: 1px !important;
+  border-top-width: 1px !important;
 }
-@font-face {
-  font-family: talento;
-  src: url("./assets/talentotech-font.woff2");
+
+.badge-outline {
+  border-color: oklch(0.648 0.15 160);
+  border-radius: 30.4px !important;
+  border-style: solid;
+  border-width: 1px;
+}
+.items-center {
+  align-items: center;
+  justify-content: center;
+}
+.bg-blue.menu-item {
+  background-color: #082563 !important;
+  transition: 100ms;
+}
+.bg-blue.menu-item:hover {
+  background-color: #dcdddf !important;
+  transition: 100ms;
+}
+.menu-item {
+  gap: 0.5rem;
+}
+.menu-item > span {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+.bg-blue {
+  background-color: #082563 !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.p-10{
+  padding: 2.5rem;
 }

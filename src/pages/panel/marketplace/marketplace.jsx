@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { pageContext } from "../../../contexts/panel-page-indexer";
 
-function PanelMain() {
+function Marketplace() {
   const { SetPageState } = useContext(pageContext);
-  SetPageState("main");
-  return <h1>Main panel</h1>;
+  SetPageState("marketplace");
+  return <h1>Marketplace</h1>;
 }
 
-export default PanelMain;
+export default Marketplace;
