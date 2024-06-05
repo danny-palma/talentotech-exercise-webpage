@@ -1,9 +1,10 @@
-import React, { createContext, useEffect } from "react";
+import { createContext, useEffect, ReactNode } from "react";
 
-export const pageContext = createContext();
-
-export const PageContextProvider = ({ children }) => {
-    const SetPageState = (pageName) => {
+interface PageContextProps {
+    SetPageState: (pageName: string) => void;
+}
+const actions: PageContextProps = {
+    SetPageState: (pageName: string) => {
         useEffect(() => {
             const btn = document.getElementById("btn-" + pageName);
             const btnList = document.getElementsByClassName("menu-item");
@@ -17,9 +18,17 @@ export const PageContextProvider = ({ children }) => {
                 btn.classList.add("bg-blue");
                 btn.classList.add("text-white");
             }
-        })
+        });
     }
-  return (
-    <pageContext.Provider value={{SetPageState}}>{children}</pageContext.Provider>
-  );
+}
+
+export const PageContextProvider = ({ children }: { children: ReactNode }) => {
+    return (
+        <pageContext.Provider value={actions}>
+            {children}
+        </pageContext.Provider>
+    );
 };
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const pageContext = createContext<PageContextProps>(actions);

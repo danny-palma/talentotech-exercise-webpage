@@ -49,6 +49,27 @@ hr {
 .cursor-pointer {
   cursor: pointer;
 }
-.p-10{
+.p-10 {
   padding: 2.5rem;
+}
+
+.navpanel {
+  transition: width 0.5s ease;
+  overflow: hidden;
+}
+
+.navpanel.hide {
+  width: 0px !important;
+}
+
+@media (max-width: 768px){
+  .navpanel{
+    position: fixed;
+    background-color: black;
+    z-index: 9999999;
+  }
+}
+.row-cols-7 {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
 }

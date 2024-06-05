@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { pageContext } from "../../../contexts/panel-page-indexer";
 
 function Jobs() {

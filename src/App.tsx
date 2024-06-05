@@ -19,25 +19,26 @@ import BootcampDetails from "./pages/panel/bootcamps/bootcamp-details/bootcamp-d
 import { PageContextProvider } from "./contexts/panel-page-indexer";
 
 function App() {
+  
   return (
-    <PageContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/panel" element={<PanelIndex />} >
-            <Route path="" element={<PanelMain />} />
-            <Route path="bootcamps" element={<Bootcamps />} />
-            <Route path="bootcamps/:id" element={<BootcampDetails />} />
-            <Route path="hackatons" element={<Hackathons />} />
-            <Route path="jobs" element={<Jobs />} />
-            <Route path="marketplace" element={<Marketplace />} />
-            <Route path="user-manual" element={<UserManual />} />
-            <Route path="faq" element={<Faq />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </PageContextProvider>
+      <PageContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/panel" element={<PanelIndex />}>
+              <Route path="" element={<PanelMain />} />
+              <Route path="bootcamps" element={<Bootcamps />} />
+              <Route path="bootcamps/:id" element={<BootcampDetails />} />
+              <Route path="hackatons" element={<Hackathons />} />
+              <Route path="jobs" element={<Jobs />} />
+              <Route path="marketplace" element={<Marketplace />} />
+              <Route path="user-manual" element={<UserManual />} />
+              <Route path="faq" element={<Faq />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </PageContextProvider>
   );
 }
 
