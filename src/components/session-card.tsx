@@ -4,14 +4,14 @@ import { ISessionInfo } from "../types/global/bootcamp-session-info";
 
 export const Session = ({ session }: { session: ISessionInfo }) => {
     return (
-        <Card>
+        <Card className="border">
             <Accordion.Item
                 eventKey={session.id}
-                className="bg-transparent p-0"
+                className="bg-transparent p-0 border-0"
             >
                 <Accordion.Header
                     as={Card.Header}
-                    className="border bg-transparent p-0"
+                    className="border-0 bg-transparent p-0"
                 >
                     <div className="d-flex justify-content-between w-100">
                         <div>
