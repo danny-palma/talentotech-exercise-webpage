@@ -17,8 +17,16 @@ function SessionSelector() {
                 <div
                     className="absolute start-0 top-0 z-10 hidden h-full w-full items-center bg-gray-950 bg-opacity-40 md:static md:block md:h-auto md:w-auto md:bg-opacity-0"
                     id="background-datecalendar"
+                    onClick={() => {
+                        document
+                            .getElementById("background-datecalendar")
+                            ?.classList.toggle("hidden");
+                        document
+                            .getElementById("background-datecalendar")
+                            ?.classList.toggle("flex");
+                    }}
                 >
-                    <DateCalendart className="bg-body" id="date-calendar" />
+                    <DateCalendart className="bg-body z-20 relative" id="date-calendar" onClick={(ev)=>{ev.stopPropagation()}}/>
                 </div>
                 <div className="block flex-1 md:hidden">
                     <TextField
@@ -27,11 +35,14 @@ function SessionSelector() {
                             readOnly: true,
                         }}
                         value={dayjs("12/02/2003").format("DD/MM/YYYY")}
-                        onFocus={() =>
+                        onClick={() => {
                             document
                                 .getElementById("background-datecalendar")
-                                ?.classList.toggle("hidden")
-                        }
+                                ?.classList.toggle("hidden");
+                            document
+                                .getElementById("background-datecalendar")
+                                ?.classList.toggle("flex");
+                        }}
                     />
                 </div>
                 <div className="d-flex flex-column">
