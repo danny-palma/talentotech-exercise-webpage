@@ -34,17 +34,17 @@ export const Session = ({ session }: { session: ISessionInfo }) => {
                 <Accordion.Collapse eventKey={session.id}>
                     <Card.Body>
                         <p>
-                            <strong>Horario de la sesión:</strong>
-                            {session.date.format("dddd, MMMM D, YYYY h:mm A")}
+                            <strong>Horario de la sesión: </strong>
+                            {session.date.format("dddd, MMMM DD, YYYY h:mm A")}
                         </p>
                         <p>
-                            <strong>Asistencia:</strong>
+                            <strong>Asistencia: </strong>
                             <span className="text-success">
                                 {session.attendance}
                             </span>
                         </p>
                         <p>
-                            <strong>Descripción:</strong> {session.description}
+                            <strong>Descripción: </strong> {session.description}
                         </p>
                         {session.status === "Finalizado" && (
                             <Button
