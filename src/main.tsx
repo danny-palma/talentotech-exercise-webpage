@@ -1,15 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { ThemeContextProvider } from './contexts/change-theme';
+import React from "react";
+
+import ReactDOM from "react-dom";
+
+import "./index.css";
+import App from "./App";
+import { ThemeContextProvider } from "./contexts/change-theme";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeContextProvider>
-      <App />
-    </ThemeContextProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <ThemeContextProvider>
+            <App />
+        </ThemeContextProvider>
+    </React.StrictMode>,
+    document.getElementById("root"),
 );
-

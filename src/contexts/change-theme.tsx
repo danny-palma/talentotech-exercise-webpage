@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState, useMemo, ReactNode } from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+
 import { PaletteMode } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 interface ThemeContextProps {
     setTheme: (theme: PaletteMode) => void;
@@ -9,7 +10,6 @@ interface ThemeContextProps {
     ThemeIcon: JSX.Element;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const themeContext = createContext<ThemeContextProps>({
     setTheme: () => {},
     toggleTheme: () => {},
@@ -18,7 +18,8 @@ export const themeContext = createContext<ThemeContextProps>({
 
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
     const [Theme, setTheme] = useState<PaletteMode>(
-        localStorage.getItem("theme") as PaletteMode || "light" as PaletteMode
+        (localStorage.getItem("theme") as PaletteMode) ||
+            ("light" as PaletteMode),
     );
 
     useEffect(() => {
@@ -33,7 +34,7 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
                     mode: Theme,
                 },
             }),
-        [Theme]
+        [Theme],
     );
 
     function toggleTheme() {

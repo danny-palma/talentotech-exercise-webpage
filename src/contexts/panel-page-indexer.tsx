@@ -19,16 +19,13 @@ const actions: PageContextProps = {
                 btn.classList.add("text-white");
             }
         });
-    }
-}
+    },
+};
 
 export const PageContextProvider = ({ children }: { children: ReactNode }) => {
     return (
-        <pageContext.Provider value={actions}>
-            {children}
-        </pageContext.Provider>
+        <pageContext.Provider value={actions}>{children}</pageContext.Provider>
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const pageContext = createContext<PageContextProps>(actions);
