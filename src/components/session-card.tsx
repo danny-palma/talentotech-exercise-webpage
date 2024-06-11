@@ -1,8 +1,8 @@
 import { Accordion, Button, Card } from "react-bootstrap";
 
-import { Sessions } from "../contexts/user-info";
+import { ISessionInfo } from "../types/global/bootcamp-session-info";
 
-export const Session = ({ session }: { session: (typeof Sessions)[0] }) => {
+export const Session = ({ session }: { session: ISessionInfo }) => {
     return (
         <Card>
             <Accordion.Item
