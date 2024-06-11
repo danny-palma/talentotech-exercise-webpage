@@ -13,7 +13,7 @@ export const Session = ({ session }: { session: ISessionInfo }) => {
                     as={Card.Header}
                     className="border-0 bg-transparent p-0"
                 >
-                    <div className="d-flex justify-content-between w-100">
+                    <div className="d-flex justify-content-between w-100 max-sm:flex-col max-sm:items-start">
                         <div>
                             <h5>{session.title}</h5>
                             <p>{session.date.format("ddd, MMM D, YYYY")}</p>
