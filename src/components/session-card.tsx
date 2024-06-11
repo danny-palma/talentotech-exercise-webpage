@@ -16,7 +16,7 @@ export const Session = ({ session }: { session: ISessionInfo }) => {
                     <div className="d-flex justify-content-between w-100 max-sm:flex-col max-sm:items-start">
                         <div>
                             <h5>{session.title}</h5>
-                            <p>{session.date.format("ddd, MMM D, YYYY")}</p>
+                            <p>{session.date.format("dddd, MMM D, YYYY")}</p>
                         </div>
                         <div className="d-flex align-items-center justify-content-center me-2 flex-row">
                             <span
