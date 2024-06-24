@@ -5,12 +5,40 @@ import { defineConfig } from "vite";
 import viteImagemin from "vite-plugin-imagemin";
 import Inspect from "vite-plugin-inspect";
 
+
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         react(),
         Inspect(),
-        visualizer({ open: true }),
+        visualizer(),
+        viteImagemin({
+            gifsicle: {
+                optimizationLevel: 7,
+                interlaced: false,
+            },
+            optipng: {
+                optimizationLevel: 7,
+            },
+            mozjpeg: {
+                quality: 20,
+            },
+            pngquant: {
+                quality: [0.65, 0.9],
+                speed: 4,
+            },
+            svgo: {
+                plugins: [
+                    {
+                        name: "removeViewBox",
+                    },
+                    {
+                        name: "removeEmptyAttrs",
+                        active: false,
+                    },
+                ],
+            },
+        }),
         obfuscator({
             compact: true,
             controlFlowFlattening: true,
@@ -42,33 +70,6 @@ export default defineConfig({
             stringArrayThreshold: 0.75,
             transformObjectKeys: true,
             unicodeEscapeSequence: false,
-        }),
-        viteImagemin({
-            gifsicle: {
-                optimizationLevel: 7,
-                interlaced: false,
-            },
-            optipng: {
-                optimizationLevel: 7,
-            },
-            mozjpeg: {
-                quality: 20,
-            },
-            pngquant: {
-                quality: [0.65, 0.9],
-                speed: 4,
-            },
-            svgo: {
-                plugins: [
-                    {
-                        name: "removeViewBox",
-                    },
-                    {
-                        name: "removeEmptyAttrs",
-                        active: false,
-                    },
-                ],
-            },
         }),
     ],
     publicDir: "./public",
