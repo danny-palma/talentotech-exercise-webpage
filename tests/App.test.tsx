@@ -1,20 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import { render } from "@testing-library/react";
+import * as testreact from '@testing-library/react';
 
-// eslint-disable-next-line import/no-unresolved
-import "@testing-library/jest-dom/extend-expect";
+import App from '../src/App';
 
-function TestComponent() {
-    return (
-        <div id="root">
-            <div>Test</div>
-        </div>
-    );
-}
-
-test("html, body, and #root should have a height of 100%", () => {
-    const { container } = render(<TestComponent />);
-
-    return expect(container.querySelector("html")).toHaveProperty("height: 100%");
+test('renders learn react link', () => {
+  testreact.render(<App />);
+  const linkElement = (/ingresar/i);
+  expect(linkElement).toBeInTheDocument();
+  
 });

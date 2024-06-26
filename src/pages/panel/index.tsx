@@ -6,6 +6,7 @@ import { FaBookmark } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoMdCart } from "react-icons/io";
 import {
+    MdAdminPanelSettings,
     MdLogout,
     MdOutlineMenuBook,
     MdOutlineQuestionMark,
@@ -112,7 +113,7 @@ function PanelIndex() {
                                 <ListGroup.Item
                                     className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
                                     as={Link}
-                                    to="/panel/"
+                                    to="/panel"
                                     action
                                     id="btn-main"
                                     onClick={() => {
@@ -120,6 +121,18 @@ function PanelIndex() {
                                     }}
                                 >
                                     <PiHouseFill /> <span>Inicio</span>
+                                </ListGroup.Item>
+                                <ListGroup.Item
+                                    className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
+                                    as={Link}
+                                    to="/panel/admin"
+                                    action
+                                    id="btn-admin"
+                                    onClick={() => {
+                                        hideNavinMobile();
+                                    }}
+                                >
+                                    <MdAdminPanelSettings /> <span>Administrador</span>
                                 </ListGroup.Item>
                                 <ListGroup.Item
                                     className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
