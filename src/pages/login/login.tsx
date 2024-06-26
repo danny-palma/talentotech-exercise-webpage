@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import {
   Button,
@@ -13,12 +13,14 @@ import { PiPasswordFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 import FondoLogin from "../../assets/Fondo-login.png";
+import LogoTalentoTechBlanco from "../../assets/Logo-tech-blanco.png";
 import LogoTalentoTechNegro from "../../assets/Logo-tech-negro.png";
+import { themeContext } from "../../contexts/change-theme";
 
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
-
+    const { Theme } = useContext(themeContext);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (
@@ -36,9 +38,9 @@ function Login() {
                     className="h-full w-full rounded-r-3xl object-cover"
                 />
             </div>
-            <div className="flex h-full w-full flex-col items-center rounded bg-white p-12">
+            <div className="flex h-full w-full flex-col items-center rounded p-12">
                 <img
-                    src={LogoTalentoTechNegro}
+                    src={Theme == "light" ? LogoTalentoTechNegro : LogoTalentoTechBlanco}
                     alt=""
                     className="mb-5 w-72 drop-shadow-xl"
                 />
