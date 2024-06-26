@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 
 import {
-  Button,
+    Button,
     FormControl,
     IconButton,
     InputAdornment,
@@ -10,19 +10,18 @@ import {
 import { IoSend } from "react-icons/io5";
 import { MdEmail, MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { PiPasswordFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import FondoLogin from "../../assets/Fondo-login.png";
 import LogoTalentoTechBlanco from "../../assets/Logo-tech-blanco.png";
 import LogoTalentoTechNegro from "../../assets/Logo-tech-negro.png";
 import { themeContext } from "../../contexts/change-theme";
 
-
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const { Theme } = useContext(themeContext);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+    const Navigate = useNavigate();
     const handleMouseDownPassword = (
         event: React.MouseEvent<HTMLButtonElement>,
     ) => {
@@ -40,7 +39,11 @@ function Login() {
             </div>
             <div className="flex h-full w-full flex-col items-center rounded p-12">
                 <img
-                    src={Theme == "light" ? LogoTalentoTechNegro : LogoTalentoTechBlanco}
+                    src={
+                        Theme == "light"
+                            ? LogoTalentoTechNegro
+                            : LogoTalentoTechBlanco
+                    }
                     alt=""
                     className="mb-5 w-72 drop-shadow-xl"
                 />
@@ -93,7 +96,12 @@ function Login() {
                             size="small"
                         />
                     </FormControl>
-                    <Button variant="contained" className="my-3" endIcon={<IoSend />}>
+                    <Button
+                        onClick={() => Navigate("/panel")}
+                        variant="contained"
+                        className="my-3"
+                        endIcon={<IoSend />}
+                    >
                         Send
                     </Button>
                     <Link to="#">Recuperar contraseña</Link>
