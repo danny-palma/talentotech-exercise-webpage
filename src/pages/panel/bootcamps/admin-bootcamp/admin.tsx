@@ -6,7 +6,7 @@
  */
 function AdminBootcamp() {
   return (
-    <div>Admin</div>
+    <div>Admin Bootcamp</div>
   )
 }
 
