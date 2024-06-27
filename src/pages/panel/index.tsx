@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { Container, Row, Col, Button, ListGroup, Image } from "react-bootstrap";
 import { BsTrophyFill } from "react-icons/bs";
-import { FaBookmark } from "react-icons/fa";
+import { FaBookmark, FaCalculator } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoMdCart } from "react-icons/io";
 import {
@@ -146,6 +146,31 @@ function PanelIndex() {
                                 >
                                     <FaBookmark /> <span>Bootcamps</span>
                                 </ListGroup.Item>
+                                <ListGroup.Item
+                                    className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
+                                    as={Link}
+                                    to="/panel/califica"
+                                    action
+                                    id="btn-califica"
+                                    onClick={() => {
+                                        hideNavinMobile();
+                                    }}
+                                >
+                                    <FaCalculator /> <span>Calificaciones</span>
+                                </ListGroup.Item>
+                                <ListGroup.Item
+                                    className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
+                                    as={Link}
+                                    to="/panel/asistencia"
+                                    action
+                                    id="btn-asistencia"
+                                    onClick={() => {
+                                        hideNavinMobile();
+                                    }}
+                                >
+                                    <FaCalculator /> <span>Asistencia</span>
+                                </ListGroup.Item>
+
                                 <hr
                                     style={{
                                         margin: "0px",

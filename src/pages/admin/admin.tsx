@@ -37,6 +37,9 @@ import {
 
 import { pageContext } from "../../contexts/panel-page-indexer";
 
+//import { MdPassword } from 'react-icons/md';
+
+
 
 const roles = ['Profesor', 'Alumno', 'Monitor'];
 const randomRole = () => {
@@ -50,6 +53,8 @@ const initialRows: GridRowsProp = [
         age: 25,
         joinDate: randomCreatedDate(),
         role: randomRole(),
+        email:randomRole(),
+        password:randomRole(),
     },
     {
         id: randomId(),
@@ -57,6 +62,8 @@ const initialRows: GridRowsProp = [
         age: 36,
         joinDate: randomCreatedDate(),
         role: randomRole(),
+        email:randomRole(),
+        password:randomRole(),
     },
     {
         id: randomId(),
@@ -64,6 +71,8 @@ const initialRows: GridRowsProp = [
         age: 19,
         joinDate: randomCreatedDate(),
         role: randomRole(),
+        email:randomRole(),
+        password:randomRole(),
     },
     {
         id: randomId(),
@@ -71,6 +80,8 @@ const initialRows: GridRowsProp = [
         age: 28,
         joinDate: randomCreatedDate(),
         role: randomRole(),
+        email:randomRole(),
+        password:randomRole(),
     },
     {
         id: randomId(),
@@ -78,6 +89,8 @@ const initialRows: GridRowsProp = [
         age: 23,
         joinDate: randomCreatedDate(),
         role: randomRole(),
+        email:randomRole(),
+        password:randomRole(),
     },
 ];
 
@@ -103,7 +116,7 @@ function EditToolbar(props: EditToolbarProps) {
     return (
         <GridToolbarContainer>
             <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-                Add record
+                Mas registros
             </Button>
             <GridToolbar/>
         </GridToolbarContainer>
@@ -157,10 +170,10 @@ export default function FullFeaturedCrudGrid() {
     };
 
     const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Name', width: 180, editable: true },
+        { field: 'name', headerName: 'Nombre', width: 150, editable: true },
         {
             field: 'age',
-            headerName: 'Age',
+            headerName: 'Edad',
             type: 'number',
             width: 80,
             align: 'left',
@@ -169,18 +182,34 @@ export default function FullFeaturedCrudGrid() {
         },
         {
             field: 'joinDate',
-            headerName: 'Join date',
+            headerName: 'Fecha Inicio',
             type: 'date',
-            width: 180,
+            width: 110,
             editable: true,
         },
         {
             field: 'role',
-            headerName: 'Department',
-            width: 220,
+            headerName: 'Rolles',
+            width: 150,
             editable: true,
             type: 'singleSelect',
-            valueOptions: ['Market', 'Finance', 'Development'],
+            valueOptions: ['Profesor', 'Alumno', 'Supervisor'],
+        },
+        {
+            field: 'email',
+            headerName: 'Mail',
+            width: 150,
+            editable: true,
+            type: 'singleSelect',
+            
+        },
+        {
+            field: 'pasword',
+            headerName: 'Contraseña',
+            width: 150,
+            editable: true,
+            type: 'singleSelect',
+            valueOptions: ['Profesor', 'Alumno', 'Supervisor'],
         },
         {
             field: 'actions',
