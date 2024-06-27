@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import { Container, Row, Col, Button, ListGroup, Image } from "react-bootstrap";
+import { Button, Col, Container, Image, ListGroup } from "react-bootstrap";
 import { BsTrophyFill } from "react-icons/bs";
 import { FaBookmark, FaCalculator } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
@@ -14,14 +14,14 @@ import {
 import { PiHouseFill } from "react-icons/pi";
 import { RiBug2Fill } from "react-icons/ri";
 import { TbBriefcase2Filled } from "react-icons/tb";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import { themeContext } from "../../contexts/change-theme";
 import { UserInformation } from "../../contexts/user-info";
 
 function PanelIndex() {
     const { toggleTheme, ThemeIcon } = useContext(themeContext);
-
+    const Navigate = useNavigate();
     const [navStatus, changeNavStatus] = useState(false);
     useEffect(() => {
         const navPanel = document.getElementById("navPanel");
@@ -54,8 +54,8 @@ function PanelIndex() {
         }
     }
     return (
-        <Container fluid>
-            <Row>
+        <Container fluid className="max-w-screen h-100 p-0">
+            <div className="h-100 m-0 flex w-screen flex-nowrap p-0">
                 <div
                     className="fixed -z-50 h-full w-full !bg-opacity-40 transition max-lg:z-40 max-lg:bg-gray-950"
                     id="navMobileBackground"
@@ -64,7 +64,7 @@ function PanelIndex() {
                     }}
                 ></div>
                 <div
-                    className="navpanel m-0 !w-80 p-0 max-lg:hidden"
+                    className="navpanel m-0 !h-full !w-80 p-0 max-lg:hidden"
                     id="navPanelFixer"
                 ></div>
                 <div
@@ -132,7 +132,8 @@ function PanelIndex() {
                                         hideNavinMobile();
                                     }}
                                 >
-                                    <MdAdminPanelSettings /> <span>Administrador</span>
+                                    <MdAdminPanelSettings />{" "}
+                                    <span>Administrador</span>
                                 </ListGroup.Item>
                                 <ListGroup.Item
                                     className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
@@ -258,6 +259,7 @@ function PanelIndex() {
                             <Button
                                 variant="outline-danger"
                                 className="w-100 d-flex align-items-center text-start text-xs"
+                                onClick={() => Navigate("/login")}
                             >
                                 <MdLogout className="me-2" />
                                 Cerrar Sesión
@@ -272,7 +274,10 @@ function PanelIndex() {
                         </div>
                     </div>
                 </div>
-                <Col className="vh-100 p-0">
+                <Col
+                    className="vh-100 h-100 w-100 p-0"
+                    style={{ width: "inherit" }}
+                >
                     <div className="h-100 d-flex flex-column rounded px-2">
                         <div className="bg-blue w-100 d-flex justify-content-between align-items-center mt-2 h-16 flex-row rounded lg:h-28">
                             <p
@@ -290,12 +295,12 @@ function PanelIndex() {
                                 className="h-6 pe-5 lg:h-9"
                             />
                         </div>
-                        <div className="h-100 w-100 overflow-y-auto p-10 max-md:p-2">
+                        <div className="h-100 w-100 !overflow-auto p-10 max-md:p-2">
                             <Outlet />
                         </div>
                     </div>
                 </Col>
-            </Row>
+            </div>
         </Container>
     );
 }
