@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import { Button, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, Container, Image, ListGroup } from "react-bootstrap";
 import { BsTrophyFill } from "react-icons/bs";
 import { FaBookmark, FaCalculator } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
@@ -54,8 +54,8 @@ function PanelIndex() {
         }
     }
     return (
-        <Container fluid>
-            <Row>
+        <Container fluid className="max-w-screen h-100 p-0">
+            <div className="h-100 m-0 flex w-screen flex-nowrap p-0">
                 <div
                     className="fixed -z-50 h-full w-full !bg-opacity-40 transition max-lg:z-40 max-lg:bg-gray-950"
                     id="navMobileBackground"
@@ -64,7 +64,7 @@ function PanelIndex() {
                     }}
                 ></div>
                 <div
-                    className="navpanel m-0 !w-80 p-0 max-lg:hidden"
+                    className="navpanel m-0 !h-full !w-80 p-0 max-lg:hidden"
                     id="navPanelFixer"
                 ></div>
                 <div
@@ -274,7 +274,10 @@ function PanelIndex() {
                         </div>
                     </div>
                 </div>
-                <Col className="vh-100 p-0">
+                <Col
+                    className="vh-100 h-100 w-100 p-0"
+                    style={{ width: "inherit" }}
+                >
                     <div className="h-100 d-flex flex-column rounded px-2">
                         <div className="bg-blue w-100 d-flex justify-content-between align-items-center mt-2 h-16 flex-row rounded lg:h-28">
                             <p
@@ -292,12 +295,12 @@ function PanelIndex() {
                                 className="h-6 pe-5 lg:h-9"
                             />
                         </div>
-                        <div className="h-100 w-100 overflow-y-auto p-10 max-md:p-2">
+                        <div className="h-100 w-100 !overflow-auto p-10 max-md:p-2">
                             <Outlet />
                         </div>
                     </div>
                 </Col>
-            </Row>
+            </div>
         </Container>
     );
 }

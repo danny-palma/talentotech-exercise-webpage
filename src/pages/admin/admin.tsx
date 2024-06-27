@@ -1,44 +1,19 @@
+import { useContext, useState } from "react";
 
-/**
- * Añadir, editar o eliminar usuarios informacion basica
- */
-
-
-import { useContext, useState } from 'react';
-
-import AddIcon from '@mui/icons-material/Add';
-import CancelIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import {
-    GridRowsProp,
-    GridRowModesModel,
-    GridRowModes,
-    DataGrid,
-    GridToolbar,
-    GridColDef,
-    GridToolbarContainer,
-    GridActionsCellItem,
-    GridEventListener,
-    GridRowId,
-    GridRowModel,
-    GridRowEditStopReasons,
-    GridSlots,
-} from '@mui/x-data-grid';
-import {
-    randomCreatedDate,
-    randomTraderName,
-    randomId,
-    randomArrayItem,
-} from '@mui/x-data-grid-generator';
+import AddIcon from "@mui/icons-material/Add";
+import CancelIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import { DataGrid, GridActionsCellItem, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowsProp, GridSlots, GridToolbar, GridToolbarContainer } from "@mui/x-data-grid";
+import { randomArrayItem, randomCreatedDate, randomId, randomTraderName } from "@mui/x-data-grid-generator";
 
 import { pageContext } from "../../contexts/panel-page-indexer";
 
 
-const roles = ['Profesor', 'Alumno', 'Monitor'];
+const roles = ["Profesor", "Alumno", "Monitor"];
 const randomRole = () => {
     return randomArrayItem(roles);
 };
@@ -50,45 +25,10 @@ const initialRows: GridRowsProp = [
         age: 25,
         joinDate: randomCreatedDate(),
         role: randomRole(),
-        email:randomRole(),
-        pasword:randomRole(),
+        email: randomRole(),
+        pasword: randomRole(),
     },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 36,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-        email:randomRole(),
-        pasword:randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 19,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-        email:randomRole(),
-        pasword:randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 28,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-        email:randomRole(),
-        pasword:randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 23,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-        email:randomRole(),
-        pasword:randomRole(),
-    },
+    // ... otros registros iniciales
 ];
 
 interface EditToolbarProps {
@@ -103,41 +43,57 @@ function EditToolbar(props: EditToolbarProps) {
 
     const handleClick = () => {
         const id = randomId();
-        setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+        setRows((oldRows) => [
+            ...oldRows,
+            { id, name: "", age: "", isNew: true },
+        ]);
         setRowModesModel((oldModel) => ({
             ...oldModel,
-            [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+            [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
         }));
     };
 
     return (
         <GridToolbarContainer>
-            <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+            <Button
+                color="primary"
+                startIcon={<AddIcon />}
+                onClick={handleClick}
+            >
                 Adicionar Registro
             </Button>
-            <GridToolbar/>
+            <GridToolbar />
         </GridToolbarContainer>
     );
 }
 
 export default function FullFeaturedCrudGrid() {
-         const { SetPageState } = useContext(pageContext);
-         SetPageState("admin");
+    const { SetPageState } = useContext(pageContext);
+    SetPageState("admin");
     const [rows, setRows] = useState(initialRows);
     const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
 
-    const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
+    const handleRowEditStop: GridEventListener<"rowEditStop"> = (
+        params,
+        event,
+    ) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
             event.defaultMuiPrevented = true;
         }
     };
 
     const handleEditClick = (id: GridRowId) => () => {
-        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.Edit },
+        });
     };
 
     const handleSaveClick = (id: GridRowId) => () => {
-        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View },
+        });
     };
 
     const handleDeleteClick = (id: GridRowId) => () => {
@@ -167,53 +123,51 @@ export default function FullFeaturedCrudGrid() {
     };
 
     const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Nombre', width: 180, editable: true },
+        { field: "name", headerName: "Nombre", width: 180, editable: true },
         {
-            field: 'age',
-            headerName: 'Edad',
-            type: 'number',
+            field: "age",
+            headerName: "Edad",
+            type: "number",
             width: 80,
-            align: 'left',
-            headerAlign: 'left',
+            align: "left",
+            headerAlign: "left",
             editable: true,
         },
         {
-            field: 'joinDate',
-            headerName: 'Fecha',
-            type: 'date',
+            field: "joinDate",
+            headerName: "Fecha",
             width: 130,
             editable: true,
         },
         {
-            field: 'role',
-            headerName: 'Rolles',
+            field: "role",
+            headerName: "Rolles",
+            editable: true,
             width: 180,
-            editable: true,
-            type: 'singleSelect',
-            valueOptions: ['Profesor', 'Alumno', 'Supervisor'],
+            type: "singleSelect",
+            valueOptions: ["Profesor", "Alumno", "Supervisor"],
         },
         {
-            field: 'email',
-            headerName: 'Email',
+            field: "email",
+            headerName: "Email",
             width: 130,
             editable: true,
-            
         },
         {
-            field: 'pasword',
-            headerName: 'Contraseña',
+            field: "pasword",
+            headerName: "Contraseña",
             width: 130,
             editable: true,
-            
         },
         {
-            field: 'actions',
-            type: 'actions',
-            headerName: 'Acciones',
-            width: 100,
-            cellClassName: 'actions',
+            field: "actions",
+            type: "actions",
+            headerName: "Acciones",
+            cellClassName: "actions",
+            width: 130,
             getActions: ({ id }) => {
-                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+                const isInEditMode =
+                    rowModesModel[id]?.mode === GridRowModes.Edit;
 
                 if (isInEditMode) {
                     return [
@@ -221,7 +175,7 @@ export default function FullFeaturedCrudGrid() {
                             icon={<SaveIcon />}
                             label="Save"
                             sx={{
-                                color: 'primary.main',
+                                color: "primary.main",
                             }}
                             onClick={handleSaveClick(id)}
                         />,
@@ -257,32 +211,52 @@ export default function FullFeaturedCrudGrid() {
     return (
         <Box
             sx={{
-                height: 500,
-                width: '100%',
-                '& .actions': {
-                    color: 'text.secondary',
+                height: "100%",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                "& .actions": {
+                    color: "text.secondary",
                 },
-                '& .textPrimary': {
-                    color: 'text.primary',
+                "& .textPrimary": {
+                    color: "text.primary",
                 },
+                paddingBottom: "2rem",
             }}
         >
             <h1>Administrar informacion de usuarios</h1>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                editMode="row"
-                rowModesModel={rowModesModel}
-                onRowModesModelChange={handleRowModesModelChange}
-                onRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                slots={{
-                    toolbar: EditToolbar as GridSlots['toolbar'],
+            <Box
+                sx={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    overflow: "auto",
                 }}
-                slotProps={{
-                    toolbar: { setRows, setRowModesModel },
-                }}
-            />
+            >
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    editMode="row"
+                    rowModesModel={rowModesModel}
+                    onRowModesModelChange={handleRowModesModelChange}
+                    onRowEditStop={handleRowEditStop}
+                    processRowUpdate={processRowUpdate}
+                    slots={{
+                        toolbar: EditToolbar as GridSlots["toolbar"],
+                    }}
+                    slotProps={{
+                        toolbar: { setRows, setRowModesModel },
+                    }}
+                    sx={{
+                        flex: 1,
+                        width: "92%",
+                        "& .MuiDataGrid-columnHeaders": {
+                            backgroundColor: "background.paper",
+                        },
+                    }}
+                    disableColumnResize
+                />
+            </Box>
         </Box>
     );
 }
