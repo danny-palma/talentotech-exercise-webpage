@@ -11,7 +11,7 @@ function Gradres() {
   return (
     <div>
       <div className="container-xl">
-        <h1>NOTAS DE ESTUDIANTES</h1>
+        <h1>NOTAS DE ESTUDIANTES 2</h1>
         <table className="table table-striped table-hover" >
             <thead>
               <tr>
