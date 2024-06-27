@@ -10,10 +10,7 @@ function Gradres() {
     SetPageState("califica");
   return (
     <div>
-      <h1>Formulario de notas</h1>
       <div className="container-xl">
-        <a href="" className="btn btn-outline-primary mt-4">Crear Nuevo<i className='bx bx-plus-medical'></i></a>
-        
         <h1>NOTAS DE ESTUDIANTES</h1>
         <table className="table table-striped table-hover" >
             <thead>

@@ -72,7 +72,7 @@ function PanelIndex() {
                     id="navPanel"
                 >
                     <div className="h-100 d-flex flex-column bg-body rounded p-1">
-                        <div>
+                        <div className="overflow-y-auto">
                             <div className="d-flex flex-row rounded p-2 text-center shadow-sm">
                                 <Image
                                     src={UserInformation.avatarlink}

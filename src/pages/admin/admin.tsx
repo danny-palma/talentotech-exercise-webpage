@@ -54,7 +54,7 @@ const initialRows: GridRowsProp = [
         joinDate: randomCreatedDate(),
         role: randomRole(),
         email:randomRole(),
-        password:randomRole(),
+        pasword:randomRole(),
     },
     {
         id: randomId(),
@@ -63,7 +63,7 @@ const initialRows: GridRowsProp = [
         joinDate: randomCreatedDate(),
         role: randomRole(),
         email:randomRole(),
-        password:randomRole(),
+        pasword:randomRole(),
     },
     {
         id: randomId(),
@@ -72,7 +72,7 @@ const initialRows: GridRowsProp = [
         joinDate: randomCreatedDate(),
         role: randomRole(),
         email:randomRole(),
-        password:randomRole(),
+        pasword:randomRole(),
     },
     {
         id: randomId(),
@@ -81,7 +81,7 @@ const initialRows: GridRowsProp = [
         joinDate: randomCreatedDate(),
         role: randomRole(),
         email:randomRole(),
-        password:randomRole(),
+        pasword:randomRole(),
     },
     {
         id: randomId(),
@@ -90,7 +90,7 @@ const initialRows: GridRowsProp = [
         joinDate: randomCreatedDate(),
         role: randomRole(),
         email:randomRole(),
-        password:randomRole(),
+        pasword:randomRole(),
     },
 ];
 
@@ -116,7 +116,7 @@ function EditToolbar(props: EditToolbarProps) {
     return (
         <GridToolbarContainer>
             <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-                Mas registros
+                Adicionar Registro
             </Button>
             <GridToolbar/>
         </GridToolbarContainer>
@@ -125,7 +125,7 @@ function EditToolbar(props: EditToolbarProps) {
 
 export default function FullFeaturedCrudGrid() {
          const { SetPageState } = useContext(pageContext);
-         SetPageState("void");
+         SetPageState("admin");
     const [rows, setRows] = useState(initialRows);
     const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
 
@@ -170,7 +170,7 @@ export default function FullFeaturedCrudGrid() {
     };
 
     const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Nombre', width: 150, editable: true },
+        { field: 'name', headerName: 'Nombre', width: 180, editable: true },
         {
             field: 'age',
             headerName: 'Edad',
@@ -182,39 +182,37 @@ export default function FullFeaturedCrudGrid() {
         },
         {
             field: 'joinDate',
-            headerName: 'Fecha Inicio',
+            headerName: 'Fecha',
             type: 'date',
-            width: 110,
+            width: 130,
             editable: true,
         },
         {
             field: 'role',
             headerName: 'Rolles',
-            width: 150,
+            width: 180,
             editable: true,
             type: 'singleSelect',
             valueOptions: ['Profesor', 'Alumno', 'Supervisor'],
         },
         {
             field: 'email',
-            headerName: 'Mail',
-            width: 150,
+            headerName: 'Email',
+            width: 130,
             editable: true,
-            type: 'singleSelect',
             
         },
         {
             field: 'pasword',
             headerName: 'Contraseña',
-            width: 150,
+            width: 130,
             editable: true,
-            type: 'singleSelect',
-            valueOptions: ['Profesor', 'Alumno', 'Supervisor'],
+            
         },
         {
             field: 'actions',
             type: 'actions',
-            headerName: 'Actions',
+            headerName: 'Acciones',
             width: 100,
             cellClassName: 'actions',
             getActions: ({ id }) => {
