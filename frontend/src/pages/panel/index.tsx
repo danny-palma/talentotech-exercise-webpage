@@ -3,15 +3,11 @@ import Drawer from "@mui/material/Drawer";
 import { useContext, useState } from "react";
 import { Button, Image, ListGroup } from "react-bootstrap";
 import { BsTrophyFill } from "react-icons/bs";
-import { FaBookmark, FaCalculator } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoMdCart } from "react-icons/io";
-import {
-    MdAdminPanelSettings,
-    MdLogout,
-    MdOutlineMenuBook,
-    MdOutlineQuestionMark,
-} from "react-icons/md";
+import { IconType } from "react-icons/lib";
+import { MdAdminPanelSettings, MdLogout, MdOutlineMenuBook, MdOutlineQuestionMark } from "react-icons/md";
 import { PiHouseFill } from "react-icons/pi";
 import { RiBug2Fill } from "react-icons/ri";
 import { TbBriefcase2Filled } from "react-icons/tb";
@@ -19,13 +15,91 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { themeContext } from "../../contexts/change-theme";
 import { UserInformation } from "../../contexts/user-info";
 
+type LinkInformation = {
+    to: string;
+    text: string;
+    icon: IconType;
+    id: string;
+    addSeparator: boolean;
+    userPermissionsNeeded: number;
+};
+
+const LinksInfo: LinkInformation[] = [
+    {
+        id: "btn-main",
+        to: "/panel",
+        icon: PiHouseFill,
+        text: "Inicio",
+        addSeparator: false,
+        userPermissionsNeeded: 0,
+    },
+    {
+        to: "/panel/admin",
+        text: "Administrador",
+        icon: MdAdminPanelSettings,
+        id: "btn-admin",
+        addSeparator: false,
+        userPermissionsNeeded: 9,
+    },
+    {
+        to: "/panel/bootcamps",
+        text: "Bootcamps",
+        icon: FaBookmark,
+        id: "btn-bootcamps",
+        addSeparator: true,
+        userPermissionsNeeded: 1,
+    },
+    {
+        to: "/panel/hackatons",
+        text: "Hackathons",
+        icon: RiBug2Fill,
+        id: "btn-hackatons",
+        addSeparator: false,
+        userPermissionsNeeded: 1,
+    },
+    {
+        to: "/panel/jobs",
+        text: "Job Connections",
+        icon: TbBriefcase2Filled,
+        id: "btn-jobs",
+        addSeparator: false,
+        userPermissionsNeeded: 1,
+    },
+    {
+        to: "/panel/marketplace",
+        text: "Marketplace",
+        icon: IoMdCart,
+        id: "btn-marketplace",
+        addSeparator: true,
+        userPermissionsNeeded: 1,
+    },
+    {
+        to: "/panel/user-manual",
+        text: "Manual de Usuario",
+        icon: MdOutlineMenuBook,
+        id: "btn-user-manual",
+        addSeparator: false,
+        userPermissionsNeeded: 1,
+    },
+    {
+        to: "/panel/faq",
+        text: "Preguntas frecuentes",
+        icon: MdOutlineQuestionMark,
+        id: "btn-faq",
+        addSeparator: false,
+        userPermissionsNeeded: 1,
+    },
+];
+
 const drawerWidth = 240;
 
 function PanelIndex() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [isClosingDrawer, setIsClosingDrawer] = useState(false);
     const { toggleTheme, ThemeIcon } = useContext(themeContext);
+
     const Navigate = useNavigate();
+
     const handleDrawerClose = () => {
         setIsClosingDrawer(true);
         setDrawerOpen(false);
@@ -92,148 +166,35 @@ function PanelIndex() {
                         variant="flush"
                         className="h-75 gap-2 overflow-y-auto rounded p-2 shadow-sm"
                     >
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel"
-                            action
-                            id="btn-main"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <PiHouseFill /> <span>Inicio</span>
-                        </ListGroup.Item>
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/admin"
-                            action
-                            id="btn-admin"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <MdAdminPanelSettings /> <span>Administrador</span>
-                        </ListGroup.Item>
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/bootcamps"
-                            action
-                            id="btn-bootcamps"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <FaBookmark /> <span>Bootcamps</span>
-                        </ListGroup.Item>
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/califica"
-                            action
-                            id="btn-califica"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <FaCalculator /> <span>Calificaciones</span>
-                        </ListGroup.Item>
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/asistencia"
-                            action
-                            id="btn-asistencia"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <FaCalculator /> <span>Asistencia</span>
-                        </ListGroup.Item>
-
-                        <hr
-                            style={{
-                                margin: "0px",
-                                marginBottom: ".5rem",
-                                marginRight: "10px",
-                                marginLeft: "10px",
-                            }}
-                        />
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/hackatons"
-                            action
-                            id="btn-hackatons"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <RiBug2Fill />
-                            <span>Hackathons</span>
-                        </ListGroup.Item>
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/jobs"
-                            action
-                            id="btn-jobs"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <TbBriefcase2Filled />
-                            <span>Job Connections</span>
-                        </ListGroup.Item>
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/marketplace"
-                            action
-                            id="btn-marketplace"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <IoMdCart />
-                            <span>Marketplace</span>
-                        </ListGroup.Item>
-                        <hr
-                            style={{
-                                margin: "0px",
-                                marginBottom: ".5rem",
-                                marginRight: "10px",
-                                marginLeft: "10px",
-                            }}
-                        />
-                        <ListGroup.Item
-                            className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/user-manual"
-                            action
-                            id="btn-user-manual"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <MdOutlineMenuBook />
-                            <span>Manual de Usuario</span>
-                        </ListGroup.Item>
-                        <ListGroup.Item
-                            className="btn btn-outline-primary d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
-                            as={Link}
-                            to="/panel/faq"
-                            action
-                            id="btn-faq"
-                            onClick={() => {
-                                setDrawerOpen(false);
-                            }}
-                        >
-                            <MdOutlineQuestionMark />
-                            <span>Preguntas frecuentes</span>
-                        </ListGroup.Item>
+                        {LinksInfo.map((linkInfo) => {
+                            return (
+                                <>
+                                    <ListGroup.Item
+                                        className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
+                                        as={Link}
+                                        to={linkInfo.to}
+                                        action
+                                        id={linkInfo.id}
+                                        onClick={() => {
+                                            setDrawerOpen(false);
+                                        }}
+                                    >
+                                        <linkInfo.icon />
+                                        <span>{linkInfo.text}</span>
+                                    </ListGroup.Item>
+                                    {linkInfo.addSeparator && (
+                                        <hr
+                                            style={{
+                                                margin: "0px",
+                                                marginBottom: ".5rem",
+                                                marginRight: "10px",
+                                                marginLeft: "10px",
+                                            }}
+                                        />
+                                    )}
+                                </>
+                            );
+                        })}
                     </ListGroup>
                     <div className="w-100 d-flex mt-auto rounded p-2 shadow-sm">
                         <Button
@@ -281,7 +242,7 @@ function PanelIndex() {
                             className="h-6 pe-5 lg:h-9"
                         />
                     </div>
-                    <div className="w-100 flex flex-1 h-fit !overflow-auto p-10 max-md:p-2">
+                    <div className="w-100 flex h-fit flex-1 !overflow-auto p-10 max-md:p-2">
                         <Outlet />
                     </div>
                 </div>
