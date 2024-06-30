@@ -1,6 +1,6 @@
 import { TableBootcamp, TableBootcampForo, TableBootcampLinkExterno, TableBootcampSesion, TableSesionUsuarioAsistencia, TableUsuario, TableUsuarioBootcampNota } from "./database-types";
 
-export type UserInformation = Omit<TableUsuario, "clave"> & {
+export type IAPIUserInformation = Omit<TableUsuario, "clave"> & {
   bootcamps: (TableBootcamp & {
     sessions: (Omit<TableBootcampSesion, "id_bootcamp"> & {
       userAsistence: Omit<
