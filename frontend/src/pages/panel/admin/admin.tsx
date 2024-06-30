@@ -7,14 +7,32 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { DataGrid, GridActionsCellItem, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowsProp, GridSlots, GridToolbar, GridToolbarContainer } from "@mui/x-data-grid";
-import { randomArrayItem, randomCreatedDate, randomId, randomTraderName } from "@mui/x-data-grid-generator";
+import {
+    DataGrid,
+    GridActionsCellItem,
+    GridColDef,
+    GridEventListener,
+    GridRowEditStopReasons,
+    GridRowId,
+    GridRowModel,
+    GridRowModes,
+    GridRowModesModel,
+    GridRowsProp,
+    GridSlots,
+    GridToolbar,
+    GridToolbarContainer,
+} from "@mui/x-data-grid";
+import {
+    randomArrayItem,
+    randomCreatedDate,
+    randomEmail,
+    randomId,
+    randomTraderName,
+} from "@mui/x-data-grid-generator";
 
-import { pageContext } from "../../contexts/panel-page-indexer";
+import { pageContext } from "../../../contexts/panelPageContext";
 
 //import { MdPassword } from 'react-icons/md';
-
-
 
 const roles = ["Profesor", "Alumno", "Monitor"];
 const randomRole = () => {
@@ -28,7 +46,7 @@ const initialRows: GridRowsProp = [
         age: 25,
         joinDate: randomCreatedDate(),
         role: randomRole(),
-        email: randomRole(),
+        email: randomEmail(),
         pasword: randomRole(),
     },
     // ... otros registros iniciales
@@ -126,12 +144,20 @@ export default function FullFeaturedCrudGrid() {
     };
 
     const columns: GridColDef[] = [
-        { field: "name", headerName: "Nombre", width: 180, editable: true },
+        {
+            field: "name",
+            headerName: "Nombre",
+            minWidth: 180,
+            flex: 1,
+            editable: true,
+            type: "string",
+        },
         {
             field: "age",
             headerName: "Edad",
             type: "number",
-            width: 80,
+            minWidth: 80,
+            flex: 0.5,
             align: "left",
             headerAlign: "left",
             editable: true,
@@ -139,35 +165,43 @@ export default function FullFeaturedCrudGrid() {
         {
             field: "joinDate",
             headerName: "Fecha",
-            width: 130,
+            minWidth: 130,
+            flex: 1,
             editable: true,
+            type: "dateTime",
         },
         {
             field: "role",
-            headerName: "Rolles",
+            headerName: "Roles",
             editable: true,
-            width: 180,
+            flex: 1,
+            minWidth: 180,
             type: "singleSelect",
             valueOptions: ["Profesor", "Alumno", "Supervisor"],
         },
         {
             field: "email",
             headerName: "Email",
-            width: 130,
+            flex: 1,
+            minWidth: 130,
             editable: true,
+            type: "string",
         },
         {
             field: "pasword",
             headerName: "Contraseña",
-            width: 130,
+            flex: 0.5,
+            minWidth: 130,
             editable: true,
+            type: "boolean",
         },
         {
             field: "actions",
             type: "actions",
             headerName: "Acciones",
             cellClassName: "actions",
-            width: 130,
+            flex: 0.5,
+            minWidth: 130,
             getActions: ({ id }) => {
                 const isInEditMode =
                     rowModesModel[id]?.mode === GridRowModes.Edit;
@@ -215,8 +249,9 @@ export default function FullFeaturedCrudGrid() {
         <Box
             sx={{
                 height: "100%",
+                minHeight: "40rem",
                 width: "100%",
-                display: "flex",
+                display: "block",
                 flexDirection: "column",
                 "& .actions": {
                     color: "text.secondary",
@@ -228,38 +263,31 @@ export default function FullFeaturedCrudGrid() {
             }}
         >
             <h1>Administrar informacion de usuarios</h1>
-            <Box
+            <DataGrid
+                rows={rows}
+                columns={columns}
+                editMode="row"
+                rowModesModel={rowModesModel}
+                onRowModesModelChange={handleRowModesModelChange}
+                onRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
+                slots={{
+                    toolbar: EditToolbar as GridSlots["toolbar"],
+                }}
+                slotProps={{
+                    toolbar: { setRows, setRowModesModel },
+                }}
                 sx={{
                     flex: 1,
+                    width: "100%",
                     display: "flex",
-                    flexDirection: "column",
-                    overflow: "auto",
+                    margin: "auto",
+                    "& .MuiDataGrid-columnHeaders": {
+                        backgroundColor: "background.paper",
+                    },
                 }}
-            >
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    editMode="row"
-                    rowModesModel={rowModesModel}
-                    onRowModesModelChange={handleRowModesModelChange}
-                    onRowEditStop={handleRowEditStop}
-                    processRowUpdate={processRowUpdate}
-                    slots={{
-                        toolbar: EditToolbar as GridSlots["toolbar"],
-                    }}
-                    slotProps={{
-                        toolbar: { setRows, setRowModesModel },
-                    }}
-                    sx={{
-                        flex: 1,
-                        width: "92%",
-                        "& .MuiDataGrid-columnHeaders": {
-                            backgroundColor: "background.paper",
-                        },
-                    }}
-                    disableColumnResize
-                />
-            </Box>
+                disableColumnResize
+            />
         </Box>
     );
 }

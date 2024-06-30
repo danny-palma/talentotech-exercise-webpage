@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { pageContext } from "../../../../contexts/panel-page-indexer";
+import { pageContext } from "../../../../contexts/panelPageContext";
 
 /**
  *  Asociar a bootcamp, eliminar y actualizar, notas y asociaciones al bootcamp

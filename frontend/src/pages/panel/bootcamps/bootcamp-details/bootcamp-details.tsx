@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { Col, Container, ListGroup, Row } from "react-bootstrap";
 
-import { pageContext } from "../../../../contexts/panel-page-indexer";
+import { pageContext } from "../../../../contexts/panelPageContext";
 import { UserInformation } from "../../../../contexts/user-info";
 
 import Chat from "./chat/chat";

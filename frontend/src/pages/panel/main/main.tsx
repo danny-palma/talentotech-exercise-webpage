@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { pageContext } from "../../../contexts/panel-page-indexer";
+import { pageContext } from "../../../contexts/panelPageContext";
 
 function PanelMain() {
     const { SetPageState } = useContext(pageContext);

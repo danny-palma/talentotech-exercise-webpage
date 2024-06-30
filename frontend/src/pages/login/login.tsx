@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import FondoLogin from "../../assets/Fondo-login.png";
 import LogoTalentoTechBlanco from "../../assets/Logo-tech-blanco.png";
 import LogoTalentoTechNegro from "../../assets/Logo-tech-negro.png";
-import { themeContext } from "../../contexts/change-theme";
+import { themeContext } from "../../contexts/themeContext";
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
