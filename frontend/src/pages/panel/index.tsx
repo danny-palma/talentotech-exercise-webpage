@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, Fragment as ReactFragment } from "react";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -168,9 +168,9 @@ function PanelIndex() {
                         variant="flush"
                         className="h-75 gap-2 overflow-y-auto rounded p-2 shadow-sm"
                     >
-                        {LinksInfo.map((linkInfo) => {
+                        {LinksInfo.map((linkInfo, index) => {
                             return (
-                                <>
+                                <ReactFragment key={index}>
                                     <ListGroup.Item
                                         className="d-flex align-items-center menu-item h-9 transform rounded border-0 transition hover:scale-105 active:scale-105"
                                         as={Link}
@@ -194,7 +194,7 @@ function PanelIndex() {
                                             }}
                                         />
                                     )}
-                                </>
+                                </ReactFragment>
                             );
                         })}
                     </ListGroup>
