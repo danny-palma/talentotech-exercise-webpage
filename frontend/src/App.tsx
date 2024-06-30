@@ -4,10 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route, HashRouter } from "react-router-dom";
 
 import { PageContextProvider } from "./contexts/panel-page-indexer";
-import AdminMain from "./pages/admin/admin";
 import Login from "./pages/login/login";
 import Main from "./pages/main/main";
 import PanelIndex from "./pages/panel";
+import AdminMain from "./pages/panel/admin/admin";
 import AdminBootcamp from "./pages/panel/bootcamps/admin-bootcamp/admin";
 import Asistencia from "./pages/panel/bootcamps/admin-bootcamp/asistencia";
 import Gradres from "./pages/panel/bootcamps/admin-bootcamp/gradres";
