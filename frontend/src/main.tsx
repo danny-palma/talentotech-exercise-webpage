@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 
 import "./index.css";
 import App from "./App";
-import { ThemeContextProvider } from "./contexts/change-theme";
+import { ThemeContextProvider } from "./contexts/themeContext";
 
 const Container = document.getElementById("root");
 const root = createRoot(Container!);

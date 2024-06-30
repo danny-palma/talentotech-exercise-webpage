@@ -14,7 +14,7 @@ import { RiBug2Fill } from "react-icons/ri";
 import { TbBriefcase2Filled } from "react-icons/tb";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
-import { themeContext } from "../../contexts/change-theme";
+import { themeContext } from "../../contexts/themeContext";
 import { UserInformation } from "../../contexts/user-info";
 
 type LinkInformation = {

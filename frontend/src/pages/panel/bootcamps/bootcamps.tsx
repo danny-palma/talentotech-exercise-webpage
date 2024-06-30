@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { Link } from "react-router-dom";
 
-import { pageContext } from "../../../contexts/panel-page-indexer";
+import { pageContext } from "../../../contexts/panelPageContext";
 
 function Bootcamps() {
     const { SetPageState } = useContext(pageContext);

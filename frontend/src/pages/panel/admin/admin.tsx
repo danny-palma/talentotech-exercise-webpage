@@ -30,7 +30,7 @@ import {
     randomTraderName,
 } from "@mui/x-data-grid-generator";
 
-import { pageContext } from "../../../contexts/panel-page-indexer";
+import { pageContext } from "../../../contexts/panelPageContext";
 
 //import { MdPassword } from 'react-icons/md';
 

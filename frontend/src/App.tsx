@@ -2,8 +2,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
-import { PageContextProvider } from "./contexts/panel-page-indexer";
-import { UserProvider } from "./contexts/user";
+import { PageContextProvider } from "./contexts/panelPageContext";
+import { UserProvider } from "./contexts/userContext";
 import Login from "./pages/login/login";
 import Main from "./pages/main/main";
 import PanelIndex from "./pages/panel";
