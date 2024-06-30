@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { HashRouter, Route, Routes } from "react-router-dom";
+
 import { PageContextProvider } from "./contexts/panel-page-indexer";
 import { UserProvider } from "./contexts/user";
 import Login from "./pages/login/login";

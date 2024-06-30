@@ -6,6 +6,7 @@ import {
     useContext,
     useState,
 } from "react";
+
 import { UserInformation } from "../../../types/api-json-types";
 
 type userContextType = {
