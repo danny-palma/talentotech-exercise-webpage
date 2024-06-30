@@ -7,14 +7,14 @@ import {
     useState,
 } from "react";
 
-import { useNavigate } from "react-router-dom";
-
 import { IAPIUserInformation } from "../../../types/api-json-types";
 import { getSessionUser } from "../services/api/api";
 
 type userContextType = {
-    user: IAPIUserInformation | undefined;
-    setUser: Dispatch<SetStateAction<IAPIUserInformation | undefined>>;
+    currentUserInformation: IAPIUserInformation | undefined;
+    setCurrentUserInformation: Dispatch<
+        SetStateAction<IAPIUserInformation | undefined>
+    >;
     updateCurrentUserInformation: () => Promise<void>;
 };
 
@@ -33,19 +33,20 @@ export const useUserContext = () => {
 };
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const navigate = useNavigate();
-    const [user, setUser] = useState<IAPIUserInformation | undefined>();
+    const [currentUserInformation, setCurrentUserInformation] = useState<
+        IAPIUserInformation | undefined
+    >();
     async function updateCurrentUserInformation() {
-        try {
-            const userInfo = await getSessionUser();
-            setUser(userInfo);
-        } catch (error) {
-            navigate("/login");
-        }
+        const userInfo = await getSessionUser();
+        setCurrentUserInformation(userInfo);
     }
     return (
         <UserContext.Provider
-            value={{ user, setUser, updateCurrentUserInformation }}
+            value={{
+                currentUserInformation,
+                setCurrentUserInformation,
+                updateCurrentUserInformation,
+            }}
         >
             {children}
         </UserContext.Provider>
