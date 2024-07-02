@@ -11,7 +11,7 @@ import { UserInformation } from "../contexts/user-info";
 import { ISessionInfo } from "../types/global/bootcamp-session-info";
 
 interface ServerDayProps extends PickersDayProps<Dayjs> {
-    highlightedDays: ISessionInfo[];
+  highlightedDays: ISessionInfo[];
 }
 
 const initialValue = dayjs(Date.now());
@@ -20,79 +20,74 @@ const initialValue = dayjs(Date.now());
 const staticHighlightedDays = UserInformation.bootcamps[0].CoursesInfo;
 
 function ServerDay({
-    highlightedDays = new Array<ISessionInfo>(),
-    day,
-    outsideCurrentMonth,
-    ...other
+  highlightedDays = new Array<ISessionInfo>(),
+  day,
+  outsideCurrentMonth,
+  ...other
 }: ServerDayProps) {
-    const highlight = highlightedDays.find((highlightedDay) =>
-        highlightedDay.date.isSame(day, "day"),
-    );
-    const isSelected = !outsideCurrentMonth && highlight;
+  const highlight = highlightedDays.find((highlightedDay) =>
+    highlightedDay.date.isSame(day, "day"),
+  );
+  const isSelected = !outsideCurrentMonth && highlight;
 
-    const getBadgeColor = (type: number) => {
-        switch (type) {
-            case 1:
-                return "red";
-            case 2:
-                return "green";
-            case 3:
-                return "yellow";
-            default:
-                return "default";
-        }
-    };
+  const getBadgeColor = (type: number) => {
+    switch (type) {
+      case 1:
+        return "red";
+      case 2:
+        return "green";
+      case 3:
+        return "yellow";
+      default:
+        return "default";
+    }
+  };
 
-    return (
-        <Badge
-            key={day.toString()}
-            overlap="circular"
-            badgeContent={isSelected ? "  " : undefined}
-            sx={{
-                "& .MuiBadge-badge": {
-                    backgroundColor: isSelected
-                        ? getBadgeColor(highlight.type)
-                        : "transparent",
-                    color: isSelected
-                        ? getBadgeColor(highlight.type)
-                        : "transparent",
-                },
-            }}
-        >
-            <PickersDay
-                {...other}
-                outsideCurrentMonth={outsideCurrentMonth}
-                day={day}
-            />
-        </Badge>
-    );
+  return (
+    <Badge
+      key={day.toString()}
+      overlap="circular"
+      badgeContent={isSelected ? "  " : undefined}
+      sx={{
+        "& .MuiBadge-badge": {
+          backgroundColor: isSelected
+            ? getBadgeColor(highlight.type)
+            : "transparent",
+          color: isSelected ? getBadgeColor(highlight.type) : "transparent",
+        },
+      }}
+    >
+      <PickersDay
+        {...other}
+        outsideCurrentMonth={outsideCurrentMonth}
+        day={day}
+      />
+    </Badge>
+  );
 }
 
 export default function DateCalendart(
-    props: React.HTMLAttributes<HTMLDivElement>,
+  props: React.HTMLAttributes<HTMLDivElement>,
 ) {
-    const [highlightedDays] = React.useState(staticHighlightedDays);
-    const [currentDate, setCurrentDate] = React.useState(initialValue);
+  const [highlightedDays] = React.useState(staticHighlightedDays);
+  const [currentDate, setCurrentDate] = React.useState(initialValue);
 
-    return (
-        <div {...props}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateCalendar
-                    value={currentDate}
-                    loading={false}
-                    onChange={(newDate) => {
-                        setCurrentDate(newDate);
-                    }}
-                    slots={{
-                        day: (props) => (
-                            <ServerDay
-                                {...props}
-                                highlightedDays={highlightedDays}
-                            />
-                        ),
-                    }}
-                />
-            </LocalizationProvider>
-        </div>
-    );
+  return (
+    <div {...props}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar
+          value={currentDate}
+          loading={false}
+          onChange={(newDate) => {
+            setCurrentDate(newDate);
+          }}
+          slots={{
+            day: (props) => (
+              <ServerDay {...props} highlightedDays={highlightedDays} />
+            ),
+          }}
+        />
+      </LocalizationProvider>
+    </div>
+  );
 }

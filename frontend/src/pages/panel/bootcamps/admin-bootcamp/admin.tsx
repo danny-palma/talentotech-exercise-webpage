@@ -9,10 +9,8 @@ import { pageContext } from "../../../../contexts/panelPageContext";
  */
 function AdminBootcamp() {
   const { SetPageState } = useContext(pageContext);
-    SetPageState("void");
-  return (
-    <div>Admin Bootcamp</div>
-  )
+  SetPageState("void");
+  return <div>Admin Bootcamp</div>;
 }
 
-export default AdminBootcamp
+export default AdminBootcamp;

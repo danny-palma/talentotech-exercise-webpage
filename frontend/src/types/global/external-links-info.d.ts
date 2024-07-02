@@ -1,4 +1,4 @@
 export interface IExternalLink {
-    link: string;
-    description: string;
+  link: string;
+  description: string;
 }

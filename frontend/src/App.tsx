@@ -21,44 +21,38 @@ import Marketplace from "./pages/panel/marketplace/marketplace";
 import UserManual from "./pages/panel/user-manual/user-manual";
 
 function App() {
-    return (
-        <UserProvider>
-            <PageContextProvider>
-                <HashRouter>
-                    <Routes>
-                        <Route path="/" element={<Main />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/panel" element={<PanelIndex />}>
-                            <Route path="" element={<PanelMain />} />
-                            <Route path="admin" element={<AdminMain />} />
-                            <Route path="bootcamps" element={<Bootcamps />} />
-                            <Route
-                                path="bootcamps/:id" //* < -- /panel/bootcamps/"prueba" (id)
-                                element={<BootcampDetails />}
-                            />
-                            <Route
-                                path="bootcamps/:id/admin" //* <-- /panel/bootcamp/"pueba"/admin
-                                element={<AdminBootcamp />}
-                            />
-                            <Route path="califica" element={<Gradres />} />
-                            <Route path="asistencia" element={<Asistencia />} />
-                            <Route path="hackatons" element={<Hackathons />} />
-                            <Route path="jobs" element={<Jobs />} />
-                            <Route
-                                path="marketplace"
-                                element={<Marketplace />}
-                            />
-                            <Route
-                                path="user-manual"
-                                element={<UserManual />}
-                            />
-                            <Route path="faq" element={<Faq />} />
-                        </Route>
-                    </Routes>
-                </HashRouter>
-            </PageContextProvider>
-        </UserProvider>
-    );
+  return (
+    <UserProvider>
+      <PageContextProvider>
+        <HashRouter>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/panel" element={<PanelIndex />}>
+              <Route path="" element={<PanelMain />} />
+              <Route path="admin" element={<AdminMain />} />
+              <Route path="bootcamps" element={<Bootcamps />} />
+              <Route
+                path="bootcamps/:id" //* < -- /panel/bootcamps/"prueba" (id)
+                element={<BootcampDetails />}
+              />
+              <Route
+                path="bootcamps/:id/admin" //* <-- /panel/bootcamp/"pueba"/admin
+                element={<AdminBootcamp />}
+              />
+              <Route path="califica" element={<Gradres />} />
+              <Route path="asistencia" element={<Asistencia />} />
+              <Route path="hackatons" element={<Hackathons />} />
+              <Route path="jobs" element={<Jobs />} />
+              <Route path="marketplace" element={<Marketplace />} />
+              <Route path="user-manual" element={<UserManual />} />
+              <Route path="faq" element={<Faq />} />
+            </Route>
+          </Routes>
+        </HashRouter>
+      </PageContextProvider>
+    </UserProvider>
+  );
 }
 
 export default App;
