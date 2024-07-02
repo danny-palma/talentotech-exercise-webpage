@@ -42,7 +42,7 @@ export type TableBootcampSesion = {
   descripcion: string;
   fecha_hora: string; // 'YYYY-MM-DDTHH:MM:SS' format
   link_externo: string;
-  estado_sesion: string;
+  estado_sesion: permissions_levels;
 };
 
 // Tabla foros_entradas_respuestas
@@ -86,9 +86,16 @@ export type TableUsuarioBootcampNota = {
   id: string;
   id_usuario: string;
   id_bootcamp: string;
-  concepto: string;
+  id_concepto: string;
+  descripcion: string;
   nota: number; // decimal(4,2)
 };
+
+export type TableNotaConcepto = {
+  id: string;
+  id_bootcamp: string;
+  concepto: string;
+}
 
 // Tabla usuarios_bootcamps_suscripciones
 export type TableUsuarioBootcampSuscripcion = {

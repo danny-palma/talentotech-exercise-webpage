@@ -4,5 +4,5 @@ import { GetUserBasicInfo } from "../sql/queries";
 export async function getSessionUser(req: Request, res: Response) {
   res
     .status(200)
-    .json(await GetUserBasicInfo("ec3414b9-d7f9-4775-b6c6-ff3e4fe94b11"));
+    .json(await GetUserBasicInfo("bf6492d1-e2fa-4b67-8d61-dcc09be2f344"));
 }

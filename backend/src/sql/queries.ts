@@ -3,7 +3,7 @@ import { TableBootcamp, TableUsuario } from "../../../types/database-types";
 import Pool from "./sql-conection";
 
 export async function GetUserBasicInfo(id: string) {
-  const [rows]:[any[], any] = await Pool.query(
+  const [rows]: [any[], any] = await Pool.query(
     `
     SELECT 
       u.id AS user_id,
@@ -41,8 +41,10 @@ export async function GetUserBasicInfo(id: string) {
       ble.texto AS link_texto,
       ble.tipo AS link_tipo,
       ubn.id AS nota_id,
-      ubn.concepto AS nota_concepto,
-      ubn.nota AS nota_nota
+      ubn.descripcion AS nota_descripcion,
+      ubn.nota AS nota_nota,
+      nc.id AS id_concepto,
+      nc.concepto AS nota_concepto
     FROM usuarios u
     LEFT JOIN usuarios_bootcamps_suscripciones ubs ON ubs.id_usuario = u.id
     LEFT JOIN bootcamps b ON b.id = ubs.id_bootcamp
@@ -51,6 +53,7 @@ export async function GetUserBasicInfo(id: string) {
     LEFT JOIN bootcamps_foros bf ON bf.id_bootcamp = b.id
     LEFT JOIN bootcamps_links_externos ble ON ble.id_bootcamp = b.id
     LEFT JOIN usuarios_bootcamps_notas ubn ON ubn.id_bootcamp = b.id AND ubn.id_usuario = u.id
+    LEFT JOIN notas_conceptos nc ON ubn.id_concepto = nc.id
     WHERE u.id = ?
   `,
     [id]
@@ -81,6 +84,7 @@ export async function GetUserBasicInfo(id: string) {
   const bootcampsMap: Map<string, IAPIUserInformation["bootcamps"][0]> = new Map();
 
   rows.forEach((row) => {
+    if (!row.bootcamp_id) return;
     if (!bootcampsMap.has(row.bootcamp_id)) {
       bootcampsMap.set(row.bootcamp_id, {
         id: row.bootcamp_id,
@@ -100,7 +104,7 @@ export async function GetUserBasicInfo(id: string) {
 
     if (
       row.session_id &&
-      !bootcamp.sessions.some((s: any) => s.id === row.session_id)
+      !bootcamp.sessions.some((s) => s.id === row.session_id)
     ) {
       bootcamp.sessions.push({
         id: row.session_id,
@@ -141,7 +145,11 @@ export async function GetUserBasicInfo(id: string) {
     if (row.nota_id && !bootcamp.userNotes.some((n) => n.id === row.nota_id)) {
       bootcamp.userNotes.push({
         id: row.nota_id,
-        concepto: row.nota_concepto,
+        descripcion: row.nota_descripcion,
+        concepto: {
+          id: row.id_concepto,
+          concepto: row.nota_concepto,
+        },
         nota: row.nota_nota,
       });
     }
