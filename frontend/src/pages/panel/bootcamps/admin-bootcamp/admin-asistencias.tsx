@@ -2,14 +2,24 @@
 
 import { useContext } from "react";
 
-import { pageContext } from "../../../../contexts/panelPageContext";
+import { useParams } from "react-router-dom";
 
-function Asistencia() {
+import { pageContext } from "../../../../contexts/panelPageContext";
+import { useUserContext } from "../../../../contexts/userContext";
+
+function AdminBootcampAsistencia() {
   const { SetPageState } = useContext(pageContext);
+  const { id } = useParams();
   SetPageState("asistencia");
+  const { currentUserInformation } = useUserContext();
+  if (!currentUserInformation) return;
+  const currentBootcamp = currentUserInformation.bootcamps.find(
+    (bootcamp) => bootcamp.id == id,
+  );
+  if (!currentBootcamp) return;
   return (
     <div>
-      <h1>Creacion de sesiones</h1>
+      <h1>Creacion de sesiones del bootcamp { currentBootcamp.titulo }</h1>
       <div>
         <div className="container-xl">
           <a href="" className="btn btn-outline-primary mt-4">
@@ -65,4 +75,4 @@ function Asistencia() {
   );
 }
 
-export default Asistencia;
+export default AdminBootcampAsistencia;

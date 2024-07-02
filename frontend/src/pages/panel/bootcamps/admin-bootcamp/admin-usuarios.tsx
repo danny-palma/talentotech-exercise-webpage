@@ -2,11 +2,21 @@
 
 import { useContext } from "react";
 
-import { pageContext } from "../../../../contexts/panelPageContext";
+import { useParams } from "react-router-dom";
 
-function Gradres() {
+import { pageContext } from "../../../../contexts/panelPageContext";
+import { useUserContext } from "../../../../contexts/userContext";
+
+function AdminBootcampUsuarios() {
   const { SetPageState } = useContext(pageContext);
-  SetPageState("califica");
+  const { id } = useParams();
+  SetPageState("asistencia");
+  const { currentUserInformation } = useUserContext();
+  if (!currentUserInformation) return;
+  const currentBootcamp = currentUserInformation.bootcamps.find(
+    (bootcamp) => bootcamp.id == id,
+  );
+  if (!currentBootcamp) return;
   return (
     <div>
       <div className="container-xl">
@@ -75,4 +85,4 @@ function Gradres() {
   );
 }
 
-export default Gradres;
+export default AdminBootcampUsuarios;
