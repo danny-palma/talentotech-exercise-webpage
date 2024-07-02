@@ -153,7 +153,7 @@ function PanelIndex() {
       >
         <div className="h-100 d-flex flex-column bg-body rounded p-1">
           <div className="d-flex flex-row rounded p-2 text-center shadow-sm">
-            <Image src={currentUserInformation.ruta_imagen_perfil} width={48} />
+            <Image src={currentUserInformation.ruta_imagen_perfil} width={48} className="rounded-full" height={48} />
             <div className="ms-3 overflow-hidden">
               <p
                 style={{ fontSize: "12px" }}

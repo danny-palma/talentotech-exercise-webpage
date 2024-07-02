@@ -8,9 +8,9 @@ import Login from "./pages/login/login";
 import Main from "./pages/main/main";
 import PanelIndex from "./pages/panel";
 import AdminMain from "./pages/panel/admin/admin";
-import AdminBootcamp from "./pages/panel/bootcamps/admin-bootcamp/admin";
-import Asistencia from "./pages/panel/bootcamps/admin-bootcamp/asistencia";
-import Gradres from "./pages/panel/bootcamps/admin-bootcamp/gradres";
+import AdminBootcampAsistencia from "./pages/panel/bootcamps/admin-bootcamp/admin-asistencias";
+import AdminBootcampSesiones from "./pages/panel/bootcamps/admin-bootcamp/admin-sesiones";
+import AdminBootcampUsuarios from "./pages/panel/bootcamps/admin-bootcamp/admin-usuarios";
 import BootcampDetails from "./pages/panel/bootcamps/bootcamp-details/bootcamp-details";
 import Bootcamps from "./pages/panel/bootcamps/bootcamps";
 import Faq from "./pages/panel/faq/faq";
@@ -37,11 +37,17 @@ function App() {
                 element={<BootcampDetails />}
               />
               <Route
-                path="bootcamps/:id/admin" //* <-- /panel/bootcamp/"pueba"/admin
-                element={<AdminBootcamp />}
+                path="bootcamps/:id/admin-sesiones" //* <-- /panel/bootcamp/"pueba"/admin
+                element={<AdminBootcampSesiones />}
               />
-              <Route path="califica" element={<Gradres />} />
-              <Route path="asistencia" element={<Asistencia />} />
+              <Route
+                path="bootcamps/:id/admin-usuarios"
+                element={<AdminBootcampUsuarios />}
+              />
+              <Route
+                path="bootcamps/:id/admin-asistencias"
+                element={<AdminBootcampAsistencia />}
+              />
               <Route path="hackatons" element={<Hackathons />} />
               <Route path="jobs" element={<Jobs />} />
               <Route path="marketplace" element={<Marketplace />} />

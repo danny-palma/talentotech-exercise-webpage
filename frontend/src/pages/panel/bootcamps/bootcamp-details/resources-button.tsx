@@ -2,12 +2,13 @@ import { ListGroup } from "react-bootstrap";
 import { FaGoogleDrive, FaLink } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import { IExternalLink } from "../../../../types/global/external-links-info";
+import { TableBootcampLinkExterno } from "../../../../../../types/database-types";
+
 function ResourcesButton({
   resourceInfo,
   resourceKey,
 }: {
-  resourceInfo: IExternalLink;
+  resourceInfo: Omit<TableBootcampLinkExterno, "id_bootcamp" | "id_grupo">;
   resourceKey: number;
 }) {
   return (
@@ -18,7 +19,7 @@ function ResourcesButton({
       to={resourceInfo.link}
     >
       <FaGoogleDrive className="me-2" />
-      {resourceInfo.description}
+      {resourceInfo.texto}
       <FaLink className="ms-2" />
     </ListGroup.Item>
   );

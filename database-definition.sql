@@ -59,9 +59,16 @@ CREATE TABLE `bootcamps_foros` (
 CREATE TABLE `bootcamps_links_externos` (
   `id` varchar(36) NOT NULL,
   `id_bootcamp` varchar(36) NOT NULL,
+  `id_grupo` varchar(36) NOT NULL,
   `link` varchar(255) NOT NULL,
   `texto` varchar(255) NOT NULL,
   `tipo` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `links_externos_grupos` (
+  `id` varchar(36) NOT NULL,
+  `id_bootcamp` varchar(36) NOT NULL,
+  `nombre_grupo_link` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -219,6 +226,15 @@ ALTER TABLE `bootcamps_foros`
 -- Indexes for table `bootcamps_links_externos`
 --
 ALTER TABLE `bootcamps_links_externos`
+--  ADD PRIMARY KEY (`id`),
+--  ADD UNIQUE KEY `id` (`id`),
+--  ADD KEY `id_bootcamp` (`id_bootcamp`),
+  ADD KEY `id_grupo` (`id_grupo`);
+
+--
+-- Indexes for table `links_externos_grupos`
+--
+ALTER TABLE `links_externos_grupos`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`),
   ADD KEY `id_bootcamp` (`id_bootcamp`);
@@ -316,7 +332,14 @@ ALTER TABLE `bootcamps_foros`
 -- Constraints for table `bootcamps_links_externos`
 --
 ALTER TABLE `bootcamps_links_externos`
-  ADD CONSTRAINT `bootcamps_links_externos_ibfk_1` FOREIGN KEY (`id_bootcamp`) REFERENCES `bootcamps` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `bootcamps_links_externos_ibfk_1` FOREIGN KEY (`id_bootcamp`) REFERENCES `bootcamps` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bootcamps_links_externos_ibfk_2` FOREIGN KEY (`id_grupo`) REFERENCES `links_externos_grupos` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `links_externos_grupos`
+--
+ALTER	 TABLE `links_externos_grupos`
+  ADD CONSTRAINT `links_externos_grupos_ibfk_1` FOREIGN KEY (`id_bootcamp`) REFERENCES `bootcamps` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `bootcamps_mentorias`

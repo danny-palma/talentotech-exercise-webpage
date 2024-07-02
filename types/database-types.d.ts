@@ -21,9 +21,17 @@ export type TableBootcampForo = {
 export type TableBootcampLinkExterno = {
   id: string;
   id_bootcamp: string;
+  id_grupo: string;
   link: string;
   texto: string;
   tipo: string;
+};
+
+// Tabla links_externos_grupos
+export type TableLinksExternosGrupos = {
+  id: string;
+  id_bootcamp: string;
+  nombre_grupo_link: string;
 };
 
 // Tabla bootcamps_mentorias

@@ -19,7 +19,11 @@ export type IAPIUserInformation = Omit<TableUsuario, "clave"> & {
       } & Omit<TableSesionUsuarioAsistencia, "id_usuario" | "id_sesion">;
     })[];
     forums: Omit<TableBootcampForo, "id_bootcamp">[];
-    externalLinks: Omit<TableBootcampLinkExterno, "id_bootcamp">[];
+    externalLinks: {
+      id: string;
+      nombreGrupo: string;
+      links: Omit<TableBootcampLinkExterno, "id_bootcamp" | "id_grupo">[];
+    }[];
     userNotes: (Omit<
       TableUsuarioBootcampNota,
       "id_usuario" | "id_bootcamp" | "id_concepto"
