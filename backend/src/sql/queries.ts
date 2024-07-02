@@ -40,6 +40,9 @@ export async function GetUserBasicInfo(id: string) {
       ble.link AS link_link,
       ble.texto AS link_texto,
       ble.tipo AS link_tipo,
+      ble.id_grupo AS link_id_grupo,
+      leg.id AS id_grupo,
+      leg.nombre_grupo_link AS nombre_grupo_link,
       ubn.id AS nota_id,
       ubn.descripcion AS nota_descripcion,
       ubn.nota AS nota_nota,
@@ -51,7 +54,8 @@ export async function GetUserBasicInfo(id: string) {
     LEFT JOIN bootcamps_sesiones bs ON bs.id_bootcamp = b.id
     LEFT JOIN sesiones_usuarios_asistencia sua ON sua.id_sesion = bs.id AND sua.id_usuario = u.id
     LEFT JOIN bootcamps_foros bf ON bf.id_bootcamp = b.id
-    LEFT JOIN bootcamps_links_externos ble ON ble.id_bootcamp = b.id
+    LEFT JOIN links_externos_grupos leg ON leg.id_bootcamp = b.id
+    LEFT JOIN bootcamps_links_externos ble ON ble.id_bootcamp = b.id AND leg.id = ble.id_grupo
     LEFT JOIN usuarios_bootcamps_notas ubn ON ubn.id_bootcamp = b.id AND ubn.id_usuario = u.id
     LEFT JOIN notas_conceptos nc ON ubn.id_concepto = nc.id
     WHERE u.id = ?
@@ -81,7 +85,8 @@ export async function GetUserBasicInfo(id: string) {
     bootcamps: new Array(),
   };
 
-  const bootcampsMap: Map<string, IAPIUserInformation["bootcamps"][0]> = new Map();
+  const bootcampsMap: Map<string, IAPIUserInformation["bootcamps"][0]> =
+    new Map();
 
   rows.forEach((row) => {
     if (!row.bootcamp_id) return;
@@ -130,16 +135,33 @@ export async function GetUserBasicInfo(id: string) {
       });
     }
 
-    if (
-      row.link_id &&
-      !bootcamp.externalLinks.some((l) => l.id === row.link_id)
-    ) {
-      bootcamp.externalLinks.push({
-        id: row.link_id,
-        link: row.link_link,
-        texto: row.link_texto,
-        tipo: row.link_tipo,
-      });
+    if (row.id_grupo) {
+      // Busca el grupo en externalLinks usando id_grupo
+      let grupo = bootcamp.externalLinks.find(
+        (grupo) => grupo.id == row.id_grupo
+      );
+
+      // Si el grupo no existe, créalo y agrégalo a externalLinks
+      if (!grupo) {
+        grupo = {
+          id: row.id_grupo,
+          nombreGrupo: row.nombre_grupo_link,
+          links: [],
+        };
+        bootcamp.externalLinks.push(grupo);
+      }
+
+      // Verifica si el enlace ya existe en el grupo usando link_id
+      if (!grupo.links.some((link) => link.id === row.link_id)) {
+        // Si el enlace no existe, agrégalo
+        if (row.link_id)
+          grupo.links.push({
+            id: row.link_id,
+            link: row.link_link,
+            texto: row.link_texto,
+            tipo: row.link_tipo,
+          });
+      }
     }
 
     if (row.nota_id && !bootcamp.userNotes.some((n) => n.id === row.nota_id)) {
@@ -161,7 +183,10 @@ export async function GetUserBasicInfo(id: string) {
 
 export async function CreateNewUser(user: TableUsuario) {
   const [result] = await Pool.query("INSERT INTO usuarios SET ?", user);
-  const [newUserResult] = await Pool.query("SELECT * FROM usuarios WHERE id = ?", user.id);
+  const [newUserResult] = await Pool.query(
+    "SELECT * FROM usuarios WHERE id = ?",
+    user.id
+  );
   return newUserResult;
 }
 
