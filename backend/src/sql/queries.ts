@@ -1,7 +1,6 @@
 import { IAPIUserInformation } from "../../../types/api-json-types";
 import { TableBootcamp, TableUsuario } from "../../../types/database-types";
 import Pool from "./sql-conection";
-import { v4 as uuidv4 } from "uuid";
 
 export async function GetUserBasicInfo(id: string) {
   const [rows]:[any[], any] = await Pool.query(
@@ -30,6 +29,7 @@ export async function GetUserBasicInfo(id: string) {
       bs.fecha_hora AS session_fecha_hora,
       bs.link_externo AS session_link_externo,
       bs.estado_sesion AS session_estado_sesion,
+      sua.id as user_asistencia_id,
       sua.estado_asistencia AS user_asistencia_estado,
       bf.id AS foro_id,
       bf.titulo AS foro_titulo,
@@ -60,7 +60,7 @@ export async function GetUserBasicInfo(id: string) {
     return [];
   }
 
-  const user = {
+  const user: IAPIUserInformation = {
     id: rows[0].user_id,
     nivel_permisos: rows[0].nivel_permisos,
     correo: rows[0].correo,
@@ -75,10 +75,10 @@ export async function GetUserBasicInfo(id: string) {
     telefono: rows[0].telefono,
     fecha_nacimiento: rows[0].fecha_nacimiento,
     puntos: rows[0].puntos,
-    bootcamps: [] as any[],
+    bootcamps: new Array(),
   };
 
-  const bootcampsMap = new Map();
+  const bootcampsMap: Map<string, IAPIUserInformation["bootcamps"][0]> = new Map();
 
   rows.forEach((row) => {
     if (!bootcampsMap.has(row.bootcamp_id)) {
@@ -86,14 +86,17 @@ export async function GetUserBasicInfo(id: string) {
         id: row.bootcamp_id,
         titulo: row.bootcamp_titulo,
         descripcion: row.bootcamp_descripcion,
-        sessions: [],
-        forums: [],
-        externalLinks: [],
-        userNotes: [],
+        sessions: new Array(),
+        forums: new Array(),
+        externalLinks: new Array(),
+        userNotes: new Array(),
       });
     }
 
     const bootcamp = bootcampsMap.get(row.bootcamp_id);
+    if (!bootcamp) {
+      return;
+    }
 
     if (
       row.session_id &&
@@ -107,12 +110,13 @@ export async function GetUserBasicInfo(id: string) {
         link_externo: row.session_link_externo,
         estado_sesion: row.session_estado_sesion,
         userAsistence: {
+          id: row.user_asistencia_id,
           estado_asistencia: row.user_asistencia_estado,
         },
       });
     }
 
-    if (row.foro_id && !bootcamp.forums.some((f: any) => f.id === row.foro_id)) {
+    if (row.foro_id && !bootcamp.forums.some((f) => f.id === row.foro_id)) {
       bootcamp.forums.push({
         id: row.foro_id,
         titulo: row.foro_titulo,
@@ -124,7 +128,7 @@ export async function GetUserBasicInfo(id: string) {
 
     if (
       row.link_id &&
-      !bootcamp.externalLinks.some((l: any) => l.id === row.link_id)
+      !bootcamp.externalLinks.some((l) => l.id === row.link_id)
     ) {
       bootcamp.externalLinks.push({
         id: row.link_id,
@@ -134,7 +138,7 @@ export async function GetUserBasicInfo(id: string) {
       });
     }
 
-    if (row.nota_id && !bootcamp.userNotes.some((n: any) => n.id === row.nota_id)) {
+    if (row.nota_id && !bootcamp.userNotes.some((n) => n.id === row.nota_id)) {
       bootcamp.userNotes.push({
         id: row.nota_id,
         concepto: row.nota_concepto,
