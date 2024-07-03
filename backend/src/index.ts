@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Reemplaza esto con la URL de tu cliente React
+    origin: process.env.URL_REACT_CLIENT, // Reemplaza esto con la URL de tu cliente React
     credentials: true,
   })
 );
