@@ -1,5 +1,5 @@
 import { IAPIUserInformation } from "../../../types/api-json-types";
-import { TableBootcamp, TableBootcampSesion, TableUsuario } from "../../../types/database-types";
+import { TableBootcamp, TableBootcampSesion, TableUsuario, TableUsuarioBootcampNota} from "../../../types/database-types";
 import Pool from "./sql-conection";
 
 export async function GetUserBasicInfo(id: string) {
@@ -199,6 +199,24 @@ export async function CreateNewBootcamp(bootcamp: TableBootcamp) {
   return newBootcampResult;
 }
 
+// TableUsuarioBootcampSesiones
 export async function CreateNewSession(session: TableBootcampSesion) {
-  
+  const [result] = await Pool.query("INSERT INTO bootcamps_sesiones SET ?", session);
+  const [newBootSessioncampResult] = await Pool.query(
+    "SELECT * FROM bootcamps_sesiones WHERE id = ?",
+    session.id
+  );
+  return newBootSessioncampResult;
+
+}
+
+// TableUsuarioBootcampNota
+export async function CreateNewNota(session: TableUsuarioBootcampNota) {
+  const [result] = await Pool.query("INSERT INTO usuarios_bootcamps_notas SET ?", session);
+  const [newBootNotacampResult] = await Pool.query(
+    "SELECT * FROM usuarios_bootcamps_notas WHERE id = ?",
+    session.id
+  );
+  return newBootNotacampResult;
+
 }

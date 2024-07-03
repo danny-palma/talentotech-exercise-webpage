@@ -1,3 +1,4 @@
+//Se obtiene la infomriacion, se guarda en una variable y se renderiza
 import { IAPIUserInformation } from "../../../../types/api-json-types";
 import { apiUri } from "../../config/global-config";
 
