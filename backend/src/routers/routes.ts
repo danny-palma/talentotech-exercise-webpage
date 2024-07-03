@@ -8,7 +8,10 @@ import { newBootcampSesion } from "../controllers/new-bootcamp-session";
 import { newBootcampNota } from "../controllers/new-bootcamps-nota";
 const route = Router();
 
+// METODO GET PARA OBTENER INFOMRACION TABLA USUARIOS SESION; Validacion de los campos
 route.get("/sessionUser", getSessionUser);
+
+// METODO POST PARA ENVIAR INFORMACION DE "NUEVO USUARIO" TABLA USUARIOS; Validacion de los campos
 route.post(
   "/newuser",
   body("correo").notEmpty().isEmail().escape(),
@@ -27,6 +30,7 @@ route.post(
   newUser
 );
 
+// METODO POST PARA ENVIAR INFORMACION DE "NUEVO BOOTCAMP" TABLA BOOTCAMP; Validacion de los campos
 route.post(
   "/newbootcamp",
   body("titulo").notEmpty().isString().escape(),
@@ -34,6 +38,7 @@ route.post(
   newBootcamp
 );
 
+// METODO POST PARA ENVIAR INFORMACION TABLA USUARIOS SESION; Validacion de los campos
 route.post(
   "/newbootcampsession",
   body("id_bootcamp").notEmpty().isString().escape(),
@@ -45,10 +50,11 @@ route.post(
   newBootcampSesion
 );
 
-// METODO POST PARA TABLA USUARIOS NOTAS; Pregunta dani, ¿si el ID usuario tambien tiene la relacion con la base de datos y si tambien hay que aplicarlo el "uuidv4"?
+// METODO POST PARA TABLA USUARIOS NOTAS; Validacion de los campos
 route.post(
   "/usuariobootcampnotas",
   body("id_usuario").notEmpty().isString().escape(),
+  body("id_bootcamp").notEmpty().isString().escape(),
   body("id_concepto").notEmpty().isString().escape(),
   body("descripcion").notEmpty().isString().escape(),
   body("nota").notEmpty().isNumeric().escape(),
