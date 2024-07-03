@@ -16,10 +16,13 @@ function AdminBootcampAsistencia() {
   const currentBootcamp = currentUserInformation.bootcamps.find(
     (bootcamp) => bootcamp.id == id,
   );
+  
+  
   if (!currentBootcamp) return;
+  // currentBootcamp.sessions.map
   return (
     <div>
-      <h1>Creacion de sesiones del bootcamp { currentBootcamp.titulo }</h1>
+      <h1>Creación de asistencias { currentBootcamp.titulo }</h1>
       <div>
         <div className="container-xl">
           <a href="" className="btn btn-outline-primary mt-4">
@@ -30,36 +33,19 @@ function AdminBootcampAsistencia() {
             <thead>
               <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Edad</th>
-                <th scope="col">Ciudad</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Tema</th>
+                <th scope="col">Id usuario</th>
+                <th scope="col">Id sesión</th>
+                <th scope="col">Estado asistencia</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">1</th>
-                <td>Camila Mikan</td>
-                <td>25</td>
-                <td>Bogotá</td>
-                <td>16/06/2024</td>
-                <td>Javascrip</td>
-                <a href="" className="btn btn-outline-success">
-                  Editar
-                </a>
-                <a href="" className="btn btn-outline-danger">
-                  Eliminar
-                </a>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Daniel Palma</td>
-                <td>25</td>
-                <td>Bogotá</td>
-                <td>16/06/2024</td>
-                <td>Javascrip</td>
+                <td>1</td>
+                <td>1.1</td>
+                <td>Asisitió</td>
+              
                 <a href="" className="btn btn-outline-success">
                   Editar
                 </a>
@@ -76,3 +62,10 @@ function AdminBootcampAsistencia() {
 }
 
 export default AdminBootcampAsistencia;
+
+//<a href="" className="btn btn-outline-success">
+//  Editar
+//</a>
+//<a href="" className="btn btn-outline-danger">
+//  Eliminar
+//</a>

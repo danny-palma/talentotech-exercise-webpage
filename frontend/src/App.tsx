@@ -37,15 +37,15 @@ function App() {
                 element={<BootcampDetails />}
               />
               <Route
-                path="bootcamps/:id/admin-sesiones" //* <-- /panel/bootcamp/"pueba"/admin
+                path="bootcamps/:id/admin-sesiones" //* <-- /panel/bootcamp/"pueba"/admin sesiones
                 element={<AdminBootcampSesiones />}
               />
               <Route
-                path="bootcamps/:id/admin-usuarios"
+                path="bootcamps/:id/admin-usuarios" //* <-- /panel/bootcamp/"pueba"/admin usuarios
                 element={<AdminBootcampUsuarios />}
               />
               <Route
-                path="bootcamps/:id/admin-asistencias"
+                path="bootcamps/:id/admin-asistencias" //* <-- /panel/bootcamp/"pueba"/admin asistencias
                 element={<AdminBootcampAsistencia />}
               />
               <Route path="hackatons" element={<Hackathons />} />

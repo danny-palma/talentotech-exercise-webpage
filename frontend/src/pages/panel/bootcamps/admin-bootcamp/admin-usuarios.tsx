@@ -10,7 +10,7 @@ import { useUserContext } from "../../../../contexts/userContext";
 function AdminBootcampUsuarios() {
   const { SetPageState } = useContext(pageContext);
   const { id } = useParams();
-  SetPageState("asistencia");
+  SetPageState("usuarios");
   const { currentUserInformation } = useUserContext();
   if (!currentUserInformation) return;
   const currentBootcamp = currentUserInformation.bootcamps.find(
