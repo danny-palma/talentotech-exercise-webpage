@@ -32,5 +32,14 @@ route.post(
   newBootcamp
 );
 
+route.post(
+  "/newbootcampsession",
+  body("id_bootcamp").notEmpty().isString().escape(),
+  body("titulo").notEmpty().isString().escape(),
+  body("descripcion").notEmpty().isString().escape(),
+  body("fecha_hora").notEmpty().isDate().escape(),
+  body("link_externo").notEmpty().isURL().escape(),
+  body("estado_sesion").notEmpty().isNumeric().escape()
+);
 route.use(RouteNotFound);
 export default route;

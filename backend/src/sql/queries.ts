@@ -1,5 +1,5 @@
 import { IAPIUserInformation } from "../../../types/api-json-types";
-import { TableBootcamp, TableUsuario } from "../../../types/database-types";
+import { TableBootcamp, TableBootcampSesion, TableUsuario } from "../../../types/database-types";
 import Pool from "./sql-conection";
 
 export async function GetUserBasicInfo(id: string) {
@@ -197,4 +197,8 @@ export async function CreateNewBootcamp(bootcamp: TableBootcamp) {
     bootcamp.id
   );
   return newBootcampResult;
+}
+
+export async function CreateNewSession(session: TableBootcampSesion) {
+  
 }
