@@ -220,6 +220,7 @@ export async function CreateNewNota(session: TableUsuarioBootcampNota) {
   return newBootNotacampResult;
 }
 
+// UNION DE REGISTROS DE DOS TABLAS "Usuarios" y "Usuarios_bootcamps_suscripciones"
 export async function GetBootcampUsers(id_bootcamp: string) {
   const [result] = await Pool.query(`
     SELECT 
