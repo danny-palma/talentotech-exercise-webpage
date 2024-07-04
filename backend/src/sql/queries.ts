@@ -1,5 +1,13 @@
-import { IAPIUserInformation } from "../../../types/api-json-types";
-import { TableBootcamp, TableBootcampSesion, TableUsuario, TableUsuarioBootcampNota} from "../../../types/database-types";
+import {
+  IAPIBootcampUsersNotes,
+  IAPIUserInformation,
+} from "../../../types/api-json-types";
+import {
+  TableBootcamp,
+  TableBootcampSesion,
+  TableUsuario,
+  TableUsuarioBootcampNota,
+} from "../../../types/database-types";
 import Pool from "./sql-conection";
 
 export async function GetUserBasicInfo(id: string) {
@@ -201,18 +209,23 @@ export async function CreateNewBootcamp(bootcamp: TableBootcamp) {
 
 // TableUsuarioBootcampSesiones
 export async function CreateNewSession(session: TableBootcampSesion) {
-  const [result] = await Pool.query("INSERT INTO bootcamps_sesiones SET ?", session);
+  const [result] = await Pool.query(
+    "INSERT INTO bootcamps_sesiones SET ?",
+    session
+  );
   const [newBootSessioncampResult] = await Pool.query(
     "SELECT * FROM bootcamps_sesiones WHERE id = ?",
     session.id
   );
   return newBootSessioncampResult;
-
 }
 
 // TableUsuarioBootcampNota
 export async function CreateNewNota(session: TableUsuarioBootcampNota) {
-  const [result] = await Pool.query("INSERT INTO usuarios_bootcamps_notas SET ?", session);
+  const [result] = await Pool.query(
+    "INSERT INTO usuarios_bootcamps_notas SET ?",
+    session
+  );
   const [newBootNotacampResult] = await Pool.query(
     "SELECT * FROM usuarios_bootcamps_notas WHERE id = ?",
     session.id
@@ -221,8 +234,8 @@ export async function CreateNewNota(session: TableUsuarioBootcampNota) {
 }
 
 export async function GetBootcampUsers(id_bootcamp: string) {
-  const [result] = await Pool.query(`
-    SELECT 
+  const [result]: [any[], any] = await Pool.query(
+    `SELECT 
       usu.id,
       usu.nivel_permisos,
       usu.correo,
@@ -236,9 +249,53 @@ export async function GetBootcampUsers(id_bootcamp: string) {
       usu.numero_documento,
       usu.telefono,
       usu.fecha_nacimiento,
-      usu.puntos
+      usu.puntos,
+      ubn.id AS id_nota,
+      ubn.descripcion AS desc_nota,
+      ubn.nota AS nota_nota,
+      nc.id AS id_concepto,
+      nc.concepto AS concepto
     FROM usuarios usu
       LEFT JOIN usuarios_bootcamps_suscripciones ubs ON ubs.id_usuario = usu.id
-    WHERE ubs.id_bootcamp = ?;`, id_bootcamp);
-    return result;
+      LEFT JOIN usuarios_bootcamps_notas ubn ON ubn.id_usuario = usu.id AND ubn.id_bootcamp = ubs.id_bootcamp
+      LEFT JOIN notas_conceptos nc ON ubn.id_concepto = nc.id
+    WHERE ubs.id_bootcamp = ?;`,
+    id_bootcamp
+  );
+  const users: Map<string, IAPIBootcampUsersNotes[0]> = new Map();
+
+  result.forEach((row) => {
+    if (!row.id) return;
+    if (!users.has(row.id)) {
+      users.set(row.id, {
+        id: row.id,
+        apellidos: row.apellidos,
+        correo: row.correo,
+        departamento: row.departamento,
+        fecha_nacimiento: row.fecha_nacimiento,
+        genero: row.genero,
+        localidad: row.localidad,
+        municipio: row.municipio,
+        nivel_permisos: row.nivel_permisos,
+        nombres: row.nombres,
+        numero_documento: row.numero_documento,
+        puntos: row.puntos,
+        ruta_imagen_perfil: row.ruta_imagen_perfil,
+        telefono: row.telefono,
+        notas_usuario: [],
+      });
+    }
+    const user = users.get(row.id);
+    if (row.id_nota)
+      user?.notas_usuario.push({
+        id: row.id_nota,
+        descripcion: row.desc_nota,
+        nota: row.nota_nota,
+        concepto: {
+          concepto: row.concepto,
+          id: row.id_concepto,
+        },
+      });
+  });
+  return Array.from(users.values());
 }

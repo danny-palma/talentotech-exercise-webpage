@@ -72,7 +72,7 @@ function EditToolbar(props: EditToolbarProps) {
   };
 
   return (
-    <GridToolbarContainer>
+    <GridToolbarContainer className="flex items-center">
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Adicionar Registro
       </Button>

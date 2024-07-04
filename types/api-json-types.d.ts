@@ -31,6 +31,11 @@ export type IAPIUserInformation = Omit<TableUsuario, "clave"> & {
   })[];
 };
 
-export type IAPIBootcampUsers = Omit<TableUsuario, "clave"> & {
-  notas_usuario: Omit<TableUsuarioBootcampNota, "id_usuario" | "id_bootcamp" | "id_concepto">[];
-}[];
+export type IAPIBootcampUsersNotes = (Omit<TableUsuario, "clave"> & {
+  notas_usuario: (Omit<
+    TableUsuarioBootcampNota,
+    "id_usuario" | "id_bootcamp" | "id_concepto"
+  > & {
+    concepto: Omit<TableNotaConcepto, "id_bootcamp">;
+  })[];
+})[];
