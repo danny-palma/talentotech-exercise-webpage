@@ -218,5 +218,27 @@ export async function CreateNewNota(session: TableUsuarioBootcampNota) {
     session.id
   );
   return newBootNotacampResult;
+}
 
+export async function GetBootcampUsers(id_bootcamp: string) {
+  const [result] = await Pool.query(`
+    SELECT 
+      usu.id,
+      usu.nivel_permisos,
+      usu.correo,
+      usu.nombres,
+      usu.apellidos,
+      usu.departamento,
+      usu.localidad,
+      usu.municipio,
+      usu.genero,
+      usu.ruta_imagen_perfil,
+      usu.numero_documento,
+      usu.telefono,
+      usu.fecha_nacimiento,
+      usu.puntos
+    FROM usuarios usu
+      LEFT JOIN usuarios_bootcamps_suscripciones ubs ON ubs.id_usuario = usu.id
+    WHERE ubs.id_bootcamp = ?;`, id_bootcamp);
+    return result;
 }

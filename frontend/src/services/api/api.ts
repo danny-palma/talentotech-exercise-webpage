@@ -1,5 +1,5 @@
 //Se obtiene la infomriacion, se guarda en una variable y se renderiza
-import { IAPIUserInformation } from "../../../../types/api-json-types";
+import { IAPIBootcampUsers, IAPIUserInformation } from "../../../../types/api-json-types";
 import { apiUri } from "../../config/global-config";
 
 export async function getSessionUser(): Promise<IAPIUserInformation> {
@@ -34,4 +34,18 @@ export async function logOutSession(): Promise<void> {
       "Error trying logout!! " + response.statusText + response.status,
     );
   return;
+}
+
+
+export async function getUsersBootcamp (idBootcamp: string): Promise<IAPIBootcampUsers> {
+  const response = await fetch(`${apiUri}/bootcampusuarios?id_bootcamp=${idBootcamp}`, {
+    method: "GET",
+    credentials: "include",
+  });
+  if (!response.ok)
+    throw new Error(
+      "Error trying logout!! " + response.statusText + response.status,
+    );
+    const usersInformation: IAPIBootcampUsers = await response.json();
+  return usersInformation;
 }

@@ -19,7 +19,7 @@ export async function newBootcampNota(req: Request, res: Response) {
   }
   const newBootcampNota = await CreateNewNota({
     id: uuidv4(),
-       id_usuario,
+    id_usuario,
     id_bootcamp,
     id_concepto,
     descripcion,

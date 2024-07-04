@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { getSessionUser } from "../controllers/getsession-user";
 import { newUser } from "../controllers/new-user";
-import { body } from "express-validator";
+import { body, query } from "express-validator";
 import { newBootcamp } from "../controllers/new-bootcamp";
 import { RouteNotFound } from "../controllers/404";
 import { newBootcampSesion } from "../controllers/new-bootcamp-session";
 import { newBootcampNota } from "../controllers/new-bootcamps-nota";
+import { getBootcampUsers } from "../controllers/get-bootcamp-users";
 const route = Router();
 
 // METODO GET PARA OBTENER INFOMRACION TABLA USUARIOS SESION; Validacion de los campos
@@ -40,7 +41,7 @@ route.post(
 
 // METODO POST PARA ENVIAR INFORMACION TABLA USUARIOS SESION; Validacion de los campos
 route.post(
-  "/newbootcampsession",
+  "/newbootcampasistencias",
   body("id_bootcamp").notEmpty().isString().escape(),
   body("titulo").notEmpty().isString().escape(),
   body("descripcion").notEmpty().isString().escape(),
@@ -61,6 +62,11 @@ route.post(
   newBootcampNota
 );
 
+route.get(
+  "/bootcampusuarios",
+  query("id_bootcamp").notEmpty().isString().escape(),
+  getBootcampUsers
+);
 
 route.use(RouteNotFound);
 export default route;

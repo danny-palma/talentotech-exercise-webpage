@@ -46,7 +46,7 @@ function AdminBootcampAsistencia() {
                 <td>1.1</td>
                 <td>Asisitió</td>
               
-                <a href="" className="btn btn-outline-success">
+                <a href="/newbootcampasistencias" className="btn btn-outline-success">
                   Editar
                 </a>
                 <a href="" className="btn btn-outline-danger">

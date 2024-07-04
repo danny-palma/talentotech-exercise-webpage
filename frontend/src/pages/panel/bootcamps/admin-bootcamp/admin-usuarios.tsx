@@ -1,22 +1,28 @@
 //import React from 'react';
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
+import { IAPIBootcampUsers } from "../../../../../../types/api-json-types";
 import { pageContext } from "../../../../contexts/panelPageContext";
 import { useUserContext } from "../../../../contexts/userContext";
+import { getUsersBootcamp } from "../../../../services/api/api";
 
 function AdminBootcampUsuarios() {
   const { SetPageState } = useContext(pageContext);
+  const [BootcampUsuarios, setBootcampUsuarios] = useState<IAPIBootcampUsers>();
   const { id } = useParams();
   SetPageState("usuarios");
   const { currentUserInformation } = useUserContext();
   if (!currentUserInformation) return;
+  if(!id) return;
   const currentBootcamp = currentUserInformation.bootcamps.find(
     (bootcamp) => bootcamp.id == id,
   );
   if (!currentBootcamp) return;
+  if (!BootcampUsuarios)
+  getUsersBootcamp(id).then((users)=> setBootcampUsuarios(users));
   return (
     <div>
       <div className="container-xl">
@@ -36,32 +42,12 @@ function AdminBootcampUsuarios() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {BootcampUsuarios?.map((usuario, index)=>{
+            return (<tr key={index}>
               <th scope="row">1</th>
-              <td>Camila Mikan</td>
-              <td>25</td>
-              <td>Bogotá</td>
-              <td>4.8</td>
-              <td>4.0</td>
-              <td>3.5</td>
-              <td>4.1</td>
-              <td>
-                <a href="" className="btn btn-outline-success">
-                  Editar
-                </a>
-                <a href="" className="btn btn-outline-danger">
-                  Eliminar
-                </a>
-                <a href="" className="btn btn-outline-primary">
-                  Calificar
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>Daniel Palma</td>
-              <td>23</td>
-              <td>Bogotá</td>
+              <td>{usuario.nombres} {usuario.apellidos}</td>
+              <td>{usuario.fecha_nacimiento}</td>
+              <td>{usuario.departamento}</td>
               <td>4.8</td>
               <td>4.8</td>
               <td>3.5</td>
@@ -78,6 +64,8 @@ function AdminBootcampUsuarios() {
                 </a>
               </td>
             </tr>
+            )
+            })}
           </tbody>
         </table>
       </div>
